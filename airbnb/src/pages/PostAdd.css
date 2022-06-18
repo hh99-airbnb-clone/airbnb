@@ -1,0 +1,51 @@
+input { 
+  width : 700px;
+  height : 25px;
+}
+
+select {
+  margin-right: 31.5px;
+  font-size: large;
+  padding: 10px;
+}
+
+.button {
+  margin-top: 200px;
+  margin-left: 550px;
+  font-size: large;
+  width: 158px;
+  height: 45px;
+  background-color: #ffcdd6;
+  color: #ff385c;
+  font-weight: 600;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.leftBox {
+  font-size: 30px;
+  text-align: center;
+  font-weight : 600px;
+  color : white;
+  background-color : #ff8399;
+  width: 35vw;
+  height: 100vh;
+  line-height: 800px;
+  float: left;
+}
+
+.postBox {
+  display: flex;
+  flex-direction: column;
+  float: left;
+  padding: 30px;
+  margin-left : 50px;
+  gap: 5px;
+}
+
+.option {
+  margin-top: 20px;
+  
+}
+
