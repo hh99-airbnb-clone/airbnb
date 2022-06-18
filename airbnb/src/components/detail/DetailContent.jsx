@@ -124,10 +124,10 @@ const Wrap = styled.div`
 `;
 
 const TextBox = styled.div`
+  display: flex;
   flex-direction: row;
   font-size: 16px;
   margin-bottom: 16px;
-  display: flex;
   margin: 0px 0px 5px 0px;
 `;
 const TextBox1 = styled.div`
@@ -137,8 +137,8 @@ const TextBox1 = styled.div`
 `;
 
 const Pgroup = styled.div`
-  margin-left: 16px;
   display: block;
+  margin-left: 16px;
 `;
 
 const TitleP = styled.p`
