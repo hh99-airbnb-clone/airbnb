@@ -10,47 +10,83 @@ import { __addComment } from "../../redux/modules/Comment";
 const CommentAvg = () => {
   const dispatch = useDispatch();
 
-  const [clean, setClean] = useState("1");
-  const [checkin, setCheckin] = useState("1");
-  const [accuracy, setAccuracy] = useState("1");
-  const [communication, setCommunication] = useState("1");
-  const [location, setLocation] = useState("1");
-  const [satisfaction, setSatisfaction] = useState("1");
-  const commetRef = useRef(null);
-  const point = ["1", "2", "3", "4", "5"];
+  const [commetIpt, setCommentItp] = useState("");
+  const [point, setPoint] = useState(
+    {
+      clean: "1",
+      checkin: "1",
+      accuracy: "1",
+      communication: "1",
+      location: "1",
+      satisfaction: "1",
+    } //id: prams 에서 id값 가져오기
+  );
 
+  const pointList = ["1", "2", "3", "4", "5"];
+
+  const handleRadio = (e) => {
+    setCommentItp(e.target.value);
+  };
   const handleRadio1 = (e) => {
-    setClean(e.target.value);
+    setPoint({
+      ...point,
+      clean: e.target.value,
+    });
   };
   const handleRadio2 = (e) => {
-    setCheckin(e.target.value);
+    setPoint({
+      ...point,
+      checkin: e.target.value,
+    });
   };
   const handleRadio3 = (e) => {
-    setAccuracy(e.target.value);
+    setPoint({
+      ...point,
+      accuracy: e.target.value,
+    });
   };
   const handleRadio4 = (e) => {
-    setCommunication(e.target.value);
+    setPoint({
+      ...point,
+      communication: e.target.value,
+    });
   };
   const handleRadio5 = (e) => {
-    setLocation(e.target.value);
+    setPoint({
+      ...point,
+      location: e.target.value,
+    });
   };
   const handleRadio6 = (e) => {
-    setSatisfaction(e.target.value);
+    setPoint({
+      ...point,
+      satisfaction: e.target.value,
+    });
   };
 
   const addComment = () => {
     dispatch(
       __addComment({
         //id: prams 에서 id값 가져오기
-        comment: commetRef.current.value,
-        clean: clean,
-        checkin: checkin,
-        accuracy: accuracy,
-        communication: communication,
-        location: location,
-        satisfaction: satisfaction,
+        comment: commetIpt,
+        clean: point.clean,
+        checkin: point.checkin,
+        accuracy: point.accuracy,
+        communication: point.communication,
+        location: point.location,
+        satisfaction: point.satisfaction,
       })
     );
+
+    setPoint({
+      clean: "1",
+      checkin: "1",
+      accuracy: "1",
+      communication: "1",
+      location: "1",
+      satisfaction: "1",
+    });
+    setCommentItp("");
   };
 
   return (
@@ -65,20 +101,20 @@ const CommentAvg = () => {
           <CommentCnt>4.76 · 후기 10개</CommentCnt>
         </CommentTitle>
         <WriteComment 후기 작성>
-          <input type="text" ref={commetRef} />
+          <input value={commetIpt} type="text" onChange={handleRadio} />
           <AddCom onClick={addComment}>작성하기</AddCom>
         </WriteComment>
         <div>
           청결도
           <label>
-            {point.map((v, i) => {
+            {pointList.map((v, i) => {
               return (
                 <input
                   key={i}
                   type="radio"
-                  name="clean-radio"
+                  name={i}
                   value={v}
-                  checked={clean === v}
+                  checked={point.clean === v}
                   onChange={handleRadio1}
                 />
               );
@@ -88,14 +124,14 @@ const CommentAvg = () => {
         <div>
           체크인
           <label>
-            {point.map((v, i) => {
+            {pointList.map((v, i) => {
               return (
                 <input
                   key={i}
                   type="radio"
                   name="checkin-radio"
                   value={v}
-                  checked={checkin === v}
+                  checked={point.checkin === v}
                   onChange={handleRadio2}
                 />
               );
@@ -105,14 +141,14 @@ const CommentAvg = () => {
         <div>
           정확도
           <label>
-            {point.map((v, i) => {
+            {pointList.map((v, i) => {
               return (
                 <input
                   key={i}
                   type="radio"
                   name="accuracy-radio"
                   value={v}
-                  checked={accuracy === v}
+                  checked={point.accuracy === v}
                   onChange={handleRadio3}
                 />
               );
@@ -122,14 +158,14 @@ const CommentAvg = () => {
         <div>
           의사소통
           <label>
-            {point.map((v, i) => {
+            {pointList.map((v, i) => {
               return (
                 <input
                   key={i}
                   type="radio"
                   name="communication-radio"
                   value={v}
-                  checked={communication === v}
+                  checked={point.communication === v}
                   onChange={handleRadio4}
                 />
               );
@@ -139,14 +175,14 @@ const CommentAvg = () => {
         <div>
           위치
           <label>
-            {point.map((v, i) => {
+            {pointList.map((v, i) => {
               return (
                 <input
                   key={i}
                   type="radio"
                   name="location-radio"
                   value={v}
-                  checked={location === v}
+                  checked={point.location === v}
                   onChange={handleRadio5}
                 />
               );
@@ -156,14 +192,14 @@ const CommentAvg = () => {
         <div>
           만족도
           <label>
-            {point.map((v, i) => {
+            {pointList.map((v, i) => {
               return (
                 <input
                   key={i}
                   type="radio"
                   name="satisfaction-radio"
                   value={v}
-                  checked={satisfaction === v}
+                  checked={point.satisfaction === v}
                   onChange={handleRadio6}
                 />
               );
