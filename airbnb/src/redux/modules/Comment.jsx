@@ -39,28 +39,24 @@ const initialState = {
 };
 
 //Thunk function
-export const __addComment =
-  (payload) =>
-  async (dispatch, getState, { history }) => {
-    try {
-      //   const { data } = await api.post(
-      //     `/api/accommodation/${payload.id}/comments`,
-      //     payload
-      //   );
-      //   dispatch(addComment(data));
-    } catch (e) {}
-  };
+export const __addComment = (payload) => async (dispatch, getState) => {
+  try {
+    const { data } = await api.post(
+      `/api/accommodation/${payload.id}/comments`,
+      payload
+    );
+    dispatch(addComment(data));
+  } catch (e) {}
+};
 
-export const __loadComments =
-  (id) =>
-  async (dispatch, getState, { history }) => {
-    try {
-      //   const { data } = await api.get(`/api/accommodation/${id}/comments`);
-      //   dispatch(loadComments(data));
-    } catch (e) {
-      // console.log(`코멘트 불러오기 실패! ${e}`);
-    }
-  };
+export const __loadComments = (id) => async (dispatch, getState) => {
+  try {
+    const { data } = await api.get(`/api/accommodation/${id}/comments`);
+    dispatch(loadComments(data));
+  } catch (e) {
+    // console.log(`코멘트 불러오기 실패! ${e}`);
+  }
+};
 
 //reducer
 
