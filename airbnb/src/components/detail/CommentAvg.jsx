@@ -86,7 +86,7 @@ const CommentAvg = () => {
       location: "1",
       satisfaction: "1",
     });
-    setCommentItp("");
+    // setCommentItp("");
   };
 
   return (
@@ -102,7 +102,18 @@ const CommentAvg = () => {
         </CommentTitle>
         <WriteComment 후기 작성>
           <input value={commetIpt} type="text" onChange={handleRadio} />
-          <AddCom onClick={addComment}>작성하기</AddCom>
+          <AddCom
+            onClick={(e) => {
+              if (commetIpt === "") {
+                window.alert("후기를 입력해주세요!");
+                setCommentItp("");
+              } else {
+                addComment();
+              }
+            }}
+          >
+            작성하기
+          </AddCom>
         </WriteComment>
         <div>
           청결도
