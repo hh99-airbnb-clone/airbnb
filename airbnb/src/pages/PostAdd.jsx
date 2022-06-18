@@ -5,7 +5,6 @@ import './PostAdd.css'
 const PostAdd = () => {
   return (
     <>
-
         <div className='leftBox'>호스팅을 시작합니다.</div>
         <div className='postBox'>
           <h4>숙소 주소를 입력해주세요.</h4>
@@ -47,11 +46,8 @@ const PostAdd = () => {
             </select>
           </div>
           <Link to={'/'}>
-            <button className='button'>
-            호스팅 하기
-            </button>
+            <button className='button'>호스팅 하기</button>
           </Link>
-          
         </div>
     </>
   )
