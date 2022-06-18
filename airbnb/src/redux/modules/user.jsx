@@ -1,6 +1,6 @@
 //user.js
 
-import api from '../../shared/api';
+import { api } from "../../shared/api";
 
 //actions
 const LOGIN = 'user/LOGIN';

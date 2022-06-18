@@ -1,6 +1,6 @@
 import { createAction, handleActions } from "redux-actions";
 import axios from "axios";
-import { api } from "../../api/api";
+import { api } from "../../shared/api";
 
 //action
 const ADD = "comment/ADD";
