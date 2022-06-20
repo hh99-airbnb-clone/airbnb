@@ -1,5 +1,5 @@
 import { createAction, handleActions } from "redux-actions";
-import axios from "axios";
+// import axios from "axios";
 import { api } from "../../shared/api";
 
 //action
@@ -98,7 +98,7 @@ export const __loadAvgs = (id) => async (dispatch, getState) => {
   }
 };
 
-//reducersss
+//reducer
 
 export default handleActions(
   {

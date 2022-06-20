@@ -1,0 +1,46 @@
+img { 
+  border-radius: 15px;
+}
+
+span {
+  font-weight: bold;
+}
+
+.footer {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: fixed;
+  padding-top: 10px;
+  bottom: 40px;
+  border-top: 1px solid #dddddd;
+  background-color: white;
+
+}
+
+.footerLeft {
+  color: #222222;
+  font-size: 14px;
+  margin-left: 155px;
+  background-color: white;
+}
+
+.footerRight {
+  font-weight: 600;
+  font-size: 14px;
+  margin-right: 165px;
+  background-color: white;
+}
+
+.bottom {
+  display : block;
+  position: fixed;
+  bottom: 0px;
+  color: gray;
+  padding: 5px 155px 8px 155px;
+  font-size: 10px;
+  flex-direction: column;
+  letter-spacing: 0.02em;
+  background-color: white;
+}
