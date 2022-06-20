@@ -1,5 +1,5 @@
 import { createAction, handleActions } from "redux-actions";
-import axios from "axios";
+// import axios from "axios";
 import { api } from "../../shared/api";
 
 //action
@@ -59,7 +59,6 @@ export const __loadComments = (id) => async (dispatch, getState) => {
 };
 
 //reducer
-
 export default handleActions(
   {
     [ADD]: (state, action) => {
