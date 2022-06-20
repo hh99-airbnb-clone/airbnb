@@ -5,13 +5,35 @@ import { api } from "../../shared/api";
 //action
 const ADD = "comment/ADD";
 const LOAD = "comment/LOAD";
+const POSTLOAD = "post/LOAD";
+const AVGLOAD = "avg/LOAD";
 
 //action creator
 const addComment = createAction(ADD, (comment) => ({ comment }));
 const loadComments = createAction(LOAD, (comment) => ({ comment }));
+const loadPosts = createAction(POSTLOAD, (post) => ({ post }));
+const loadAvgs = createAction(AVGLOAD, (avg) => ({ avg }));
 
 //initialState
 const initialState = {
+  posts: [
+    {
+      id: 1,
+      nickname: "정욱",
+      title: "title",
+      house_name: "house_name",
+      fee: "200,000￦",
+      content: "content",
+      address: "서울 관악구 청룡동",
+      people: 4,
+      wifi: false,
+      parking: false,
+      images: [],
+      category: "주택",
+      room: 2,
+    },
+  ],
+
   commentAvgs: [
     {
       checkinAvg: 5, //체크인
@@ -58,7 +80,25 @@ export const __loadComments = (id) => async (dispatch, getState) => {
   }
 };
 
-//reducer
+export const __loadPosts = (id) => async (dispatch, getState) => {
+  try {
+    const { data } = await api.get(`/api/accommodation/${id}/`);
+    dispatch(loadPosts(data));
+  } catch (e) {
+    // console.log(`코멘트 불러오기 실패! ${e}`);
+  }
+};
+
+export const __loadAvgs = (id) => async (dispatch, getState) => {
+  try {
+    const { data } = await api.get(`/api/accommodation/${id}/avgs`);
+    dispatch(loadAvgs(data));
+  } catch (e) {
+    // console.log(`코멘트 불러오기 실패! ${e}`);
+  }
+};
+
+//reducersss
 
 export default handleActions(
   {
@@ -72,6 +112,18 @@ export default handleActions(
     [LOAD]: (state, action) => {
       return {
         ...state,
+        comments: action.payload,
+      };
+    },
+    [POSTLOAD]: (state, action) => {
+      return {
+        ...state,
+        posts: action.payload,
+      };
+    },
+    [AVGLOAD]: (state, action) => {
+      return {
+        ...state,
         commentAvgs: action.payload,
       };
     },
@@ -82,6 +134,8 @@ export default handleActions(
 const commentActions = {
   __addComment,
   __loadComments,
+  __loadPosts,
+  __loadAvgs,
 };
 
 export { commentActions };

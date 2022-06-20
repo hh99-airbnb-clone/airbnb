@@ -1,6 +1,13 @@
 import React from "react";
 import styled from "styled-components";
 
+import { BsDoorOpen, BsKey } from "react-icons/bs";
+import { BiBed } from "react-icons/bi";
+import { MdBed } from "react-icons/md";
+import { GrLocation } from "react-icons/gr";
+import AirCover from "../../images/aircover.webp";
+import Follow from "./Follow";
+
 const DetailContent = () => {
   return (
     <div>
@@ -10,14 +17,24 @@ const DetailContent = () => {
           <TextWrap>
             <TextBox>
               <Pgroup>
-                <TitleP>셀프 체크인</TitleP>
+                <TitleP>
+                  <span>
+                    <BsDoorOpen style={{ margin: "5px 10px 0px 0px" }} />
+                  </span>
+                  셀프 체크인
+                </TitleP>
                 <IntroP>키패드를 이용해 체크인하세요.</IntroP>
               </Pgroup>
             </TextBox>
 
             <TextBox>
               <Pgroup>
-                <TitleP>훌륭한 숙소 위치</TitleP>
+                <TitleP>
+                  <span>
+                    <GrLocation style={{ margin: "5px 10px 0px 0px" }} />
+                  </span>
+                  훌륭한 숙소 위치
+                </TitleP>
                 <IntroP>
                   최근 숙박한 게스트 중 95%가 위치에 별점 5점을 준 숙소입니다.
                 </IntroP>
@@ -25,7 +42,12 @@ const DetailContent = () => {
             </TextBox>
             <TextBox1>
               <Pgroup>
-                <TitleP>순조로운 체크인 과정</TitleP>
+                <TitleP>
+                  <span>
+                    <BsKey style={{ margin: "5px 10px 0px 0px" }} />
+                  </span>
+                  순조로운 체크인 과정
+                </TitleP>
                 <IntroP>
                   최근 숙박한 게스트 중 95%가 체크인 과정에 별점 5점을 준
                   숙소입니다.
@@ -33,6 +55,39 @@ const DetailContent = () => {
               </Pgroup>
             </TextBox1>
           </TextWrap>
+        </Wrap>
+        {/* 에어커버 */}
+        <Wrap>
+          <img
+            src={AirCover}
+            alt=""
+            style={{ height: "20px", weight: "20px" }}
+          />
+
+          <p
+            style={{
+              fontSize: "14px",
+              lineHeight: "20px",
+              color: "rgb(113, 113, 113)",
+            }}
+          >
+            모든 예약에는 호스트가 예약을 취소하거나 숙소 정보가 정확하지 않은
+            경우 또는 체크인에 문제가 있는 상황에 대비한 무료 보호 프로그램이
+            포함됩니다.
+          </p>
+
+          <span
+            style={{
+              fontWeight: "600",
+              cursor: "pointer",
+              textDecoration: "underline",
+            }}
+            onClick={() => {
+              window.alert("comming soon");
+            }}
+          >
+            더 알아보기
+          </span>
         </Wrap>
         {/* 작성자 게시글 내용 */}
         <Wrap>
@@ -56,7 +111,10 @@ const DetailContent = () => {
           <SleepZone>
             <SleepP>숙박 장소</SleepP>
             <BadBox>
-              <BadContent style={{ marginBottom: "16px" }}></BadContent>
+              <BadContent style={{ marginBottom: "16px" }}>
+                <BiBed style={{ fontSize: "26px" }} />
+                <MdBed style={{ fontSize: "26px", marginLeft: "6px" }} />
+              </BadContent>
               <BadContent
                 style={{
                   marginBottom: "8px",
@@ -64,7 +122,7 @@ const DetailContent = () => {
                   fontWeight: "800",
                 }}
               >
-                침실
+                방 3개
               </BadContent>
               <BadContent style={{ fontSize: "14px" }}>
                 퀸사이즈 침대 1개, 소파 1개

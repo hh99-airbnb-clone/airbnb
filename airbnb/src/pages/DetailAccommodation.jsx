@@ -5,13 +5,20 @@ import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 
 //컴포넌트
+import FollowHeader from "../components/detail/FollowHeader";
+import Title from "../components/detail/Title";
 import TitleImg from "../components/detail/TitleImg";
+import TitleBox from "../components/detail/TitleBox";
 import DetailContent from "../components/detail/DetailContent";
 import CommentList from "../components/detail/CommentList";
 import CommentAvg from "../components/detail/CommentAvg";
+import DetailMap from "../components/detail/DetailMap";
+import Rules from "../components/detail/Rules";
+import DetailFooter from "../components/detail/DetailFooter";
 
 //모듈
 import { __loadComments } from "../redux/modules/Comment";
+import Introduce from "../components/detail/Introduce";
 
 const DetailAccommodation = () => {
   const dispatch = useDispatch();
@@ -24,18 +31,17 @@ const DetailAccommodation = () => {
 
   return (
     <>
+      <FollowHeader />
       <Box>
-        <h1>산블라스섬의 키메라섬 프라이빗 투어 (성인만 참여 가능)</h1>
-        <p>★ 4.94 · 후기17개 · San Blas, Nayarit, 멕시코</p>
-        <p>공유하기 ♡ 저장</p>
-        <TitleImg /> <br />
-        <br />
-        <h2>Ixchel님이 호스팅하는 섬의 개인실</h2>
-        <p>최대 인원 · 2명침실 · 1개침대1개 · 공동 사용 욕실 1개</p>
-        <DetailContent />
+        <Title />
+        <TitleImg />
+        <Introduce />
         <CommentAvg />
-        <CommentList />{" "}
+        <CommentList />
+        <DetailMap />
+        <Rules />
       </Box>
+      <DetailFooter />
     </>
   );
 };
@@ -43,7 +49,7 @@ const DetailAccommodation = () => {
 export default DetailAccommodation;
 
 const Box = styled.div`
-  width: 65vw;
+  width: 75%;
   margin: auto;
   display: flex;
   flex-direction: column;
