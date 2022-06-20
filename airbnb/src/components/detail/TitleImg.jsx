@@ -27,9 +27,10 @@ const TitleImg = () => {
 export default TitleImg;
 
 const ImgBox = styled.div`
+  display: flex;
+  margin-top: 10px;
   padding-top: 16px;
   flex-direction: row;
-  display: flex;
   flex-wrap: wrap;
   width: 100%;
   justify-content: center;

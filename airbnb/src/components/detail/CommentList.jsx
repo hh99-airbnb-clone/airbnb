@@ -1,9 +1,12 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
 
 const CommentList = () => {
+  const comment_list = useSelector((state) => state.comments);
+
   return (
-    <>
+    <CommentAll>
       <Comment>
         <UserProfile>
           <div>
@@ -19,11 +22,31 @@ const CommentList = () => {
           좋아요!
         </CommentContent>
       </Comment>
-    </>
+      <Comment>
+        <UserProfile>
+          <div>
+            <UserImage />
+          </div>
+          <NameDate>
+            <UserName>김정욱</UserName>
+            <Date> 2222년 7월</Date>
+          </NameDate>
+        </UserProfile>
+        <CommentContent>
+          숙소가 정말 좋아요! 숙소가 정말 좋아요!숙소가 정말 좋아요!숙소가 정말
+          좋아요!
+        </CommentContent>
+      </Comment>
+    </CommentAll>
   );
 };
 
 export default CommentList;
+
+const CommentAll = styled.div`
+  width: 100%;
+  display: flex;
+`;
 
 const Comment = styled.div`
   width: 48%;
