@@ -1,7 +1,7 @@
 //user.js
 
-import { api } from "../../shared/api";
-
+import { api } from '../../shared/api';
+import { setCookie, deleteCookie } from '../../shared/cookie';
 //actions
 const LOGIN = 'user/LOGIN';
 const LOGOUT = 'user/LOGOUT';
@@ -31,16 +31,18 @@ export function nickNameCheckUser(user) {
 
 //middlewares
 
-export const __signup = (email, nickname, password) => {
+export const __signup = (payload) => {
+    console.log(payload);
     return async function (dispatch, getState) {
-        console.log(__signup);
         await api
-            .post('/post', {
-                email: email,
-                nickname: nickname,
-                password: password,
+            .post('/signup', {
+                email: payload.email,
+                nickname: payload.nickName,
+                // 뒤에보내줄 v값은
+                password: payload.password,
             })
             .then((user) => {
+                console.log(user);
                 window.alert('회원가입이 완료되었습니다.');
                 window.location.assign('/login');
             })
@@ -53,25 +55,36 @@ export const __signup = (email, nickname, password) => {
     };
 };
 
-export const __login = (email, password) => {
+export const __login = (payload) => {
     return async function (dispatch) {
-        console.log(__login);
         await api
             .post('/login', {
-                email: email,
-                password: password,
+                email: payload.email,
+                password: payload.password,
             })
-            .then((user) => {
-                localStorage.setItem('token', user.data.token);
-                localStorage.setItem('email', email);
-                localStorage.setItem('nickname', user.data.nickname);
+            .then((response) => {
+                console.log(response);
+                localStorage.setItem('token', response.headers.authorization);
+                localStorage.setItem('email', payload.email);
+                localStorage.setItem('nickname', response.data.nickname);
+                // dispatch(
+                //     logInUser({
+                //         email: payload.email,
+                //         nickname: user.data.nickname,
+                //     })
+                // );
+                // window.alert(`${user.data.nickname}님 환영합니다!`);
+                // window.location.assign('/');
                 dispatch(
                     logInUser({
-                        email: email,
-                        nickname: user.data.nickname,
+                        login: true,
+                        nickName: response.data.nickname,
+                        token: response.headers.authorization,
                     })
                 );
-                window.alert(`${user.data.nickname}님 환영합니다!`);
+                setCookie('Authorization', response.headers.authorization.split(' ')[1]);
+                setCookie('nickname', response.data.nickname);
+                window.alert(`${response.data.nickname}님 환영합니다!`);
                 window.location.assign('/');
             })
             .catch((error) => {
@@ -85,10 +98,10 @@ export const __login = (email, password) => {
 
 export const __emailCheck = (email) => {
     return async function (dispatch, getState) {
-        console.log(__emailCheck);
+        console.log(email);
         await api
             .post('/signup/email', {
-                email: email,
+                email: email.email,
             })
             .then((user) => {
                 window.alert('사용가능한 이메일 입니다.');
@@ -104,10 +117,10 @@ export const __emailCheck = (email) => {
 
 export const __nickNameCheck = (nickname) => {
     return async function (dispatch, getState) {
-        console.log(__nickNameCheck);
+        console.log(nickname);
         await api
             .post('/signup/nickname', {
-                nickname: nickname,
+                nickname: nickname.nickname,
             })
             .then((user) => {
                 window.alert('사용가능한 닉네임 입니다.');
@@ -140,9 +153,9 @@ export const __nickNameCheck = (nickname) => {
 
 export const __logOut = () => {
     return function (dispatch) {
-        console.log(__logOut);
+        deleteCookie('is_token');
         localStorage.clear();
-        dispatch(logOutUser());
+        dispatch(__login(false));
         window.location.assign('/');
     };
 };
@@ -160,9 +173,10 @@ export default function userReducer(state = initialState, action = {}) {
             state.is_login = false;
             return state;
         case EMAILCHECK:
-            return { ...state, idCheck: action.email };
+            return { ...state, idCheck: action.user };
         case NICKNAMECHECK:
-            return { ...state, username: action.username, nickname: action.nickname };
+            return { ...state, nickname: action.user };
+
         default:
             return state;
     }
