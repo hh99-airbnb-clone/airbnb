@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { useSelector } from "react-redux";
+import Profile from "../../images/prof.png";
 
 const TitleBox = () => {
   return (
@@ -15,7 +16,9 @@ const TitleBox = () => {
           onClick={() => {
             window.scrollTo({ top: 9999, left: 0, behavior: "smooth" });
           }}
-        ></HostImage>
+        >
+          <UserImage src={Profile} />
+        </HostImage>
       </HostWrap>
     </>
   );
@@ -58,4 +61,15 @@ const TextWrap = styled.div`
   flex-direction: column;
   text-align: left;
   padding: 50px 16px 16px 0px;
+`;
+
+const UserImage = styled.div`
+  margin: 0px 15px 0px 0px;
+  width: 56px;
+  height: 56px;
+  border-radius: 50px;
+  background-image: url(${(props) => props.src});
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
 `;

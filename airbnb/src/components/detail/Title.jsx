@@ -23,8 +23,23 @@ const Title = () => {
             <span style={{ margin: "4px 4px 6px 0px" }}>
               <GoStar style={{ width: "14px", marginRight: "2px" }} />
             </span>
-            <p style={{ margin: "0px 5px 3px 0px" }}> 4.76 · 후기 120개 ·</p>
-            <p style={{ color: "gray", margin: "0px 0px 3px 0px" }}>
+            <p style={{ margin: "0px 5px 3px 0px", textDecoration: "none" }}>
+              {" "}
+              4.76 ·{" "}
+            </p>
+            <p
+              style={{ margin: "0px 5px 3px 0px", textDecoration: "underline" }}
+            >
+              {" "}
+              후기 120개 ·
+            </p>
+            <p
+              style={{
+                color: "gray",
+                margin: "0px 0px 3px 0px",
+                textDecoration: "underline",
+              }}
+            >
               El Nido, MIMAROPA, 필리핀
             </p>
           </CommentLocal>
@@ -76,7 +91,7 @@ const Btngroup = styled.div`
   flex-direction: row;
   font-size: 14px;
   font-weight: 600;
-  text-decoration: underline;
+
   line-height: 5px;
 `;
 
@@ -90,6 +105,7 @@ const ShareBtn = styled.span`
   display: flex;
   flex-direction: row;
   align-items: center;
+  text-decoration: underline;
   padding: 8px;
   /* height: 42px; */
   border-radius: 8px;

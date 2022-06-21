@@ -1,3 +1,4 @@
+import axios from "axios";
 import { createAction, handleActions } from "redux-actions";
 // import axios from "axios";
 import { api } from "../../shared/api";
@@ -7,12 +8,14 @@ const ADD = "comment/ADD";
 const LOAD = "comment/LOAD";
 const POSTLOAD = "post/LOAD";
 const AVGLOAD = "avg/LOAD";
+const IMGLOAD = "img/LOAD";
 
 //action creator
 const addComment = createAction(ADD, (comment) => ({ comment }));
 const loadComments = createAction(LOAD, (comment) => ({ comment }));
 const loadPosts = createAction(POSTLOAD, (post) => ({ post }));
 const loadAvgs = createAction(AVGLOAD, (avg) => ({ avg }));
+const loadImgs = createAction(IMGLOAD, (img) => ({ img }));
 
 //initialState
 const initialState = {
@@ -33,7 +36,7 @@ const initialState = {
       room: 2,
     },
   ],
-
+  imgs: [],
   commentAvgs: [
     {
       checkinAvg: 5, //체크인
@@ -98,6 +101,21 @@ export const __loadAvgs = (id) => async (dispatch, getState) => {
   }
 };
 
+export const __loadImgs = (id) => async (dispatch, getState) => {
+  try {
+    const { data } = await axios.get(
+      `http://3.34.4.93/api/accommodations/1/imgs`
+    );
+    console.log(data);
+    // const response = JSON.parse(data);
+
+    // const { data } = await api.get(`/api/accommodation/${id}/avgs`);
+    dispatch(loadImgs(data));
+  } catch (e) {
+    // console.log(`코멘트 불러오기 실패! ${e}`);
+  }
+};
+
 //reducer
 
 export default handleActions(
@@ -127,6 +145,12 @@ export default handleActions(
         commentAvgs: action.payload,
       };
     },
+    [IMGLOAD]: (state, action) => {
+      return {
+        ...state,
+        imgs: action.payload,
+      };
+    },
   },
   initialState
 );
@@ -136,6 +160,7 @@ const commentActions = {
   __loadComments,
   __loadPosts,
   __loadAvgs,
+  __loadImgs,
 };
 
 export { commentActions };

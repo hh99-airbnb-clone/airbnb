@@ -1,12 +1,19 @@
 import React from "react";
 import styled from "styled-components";
-
+//icons
 import { BsDoorOpen, BsKey } from "react-icons/bs";
 import { BiBed } from "react-icons/bi";
 import { MdBed } from "react-icons/md";
+import { AiOutlineWifi, AiOutlineCar } from "react-icons/ai";
 import { GrLocation } from "react-icons/gr";
+import { IoIosSnow } from "react-icons/io";
+import { GiJumpingDog } from "react-icons/gi";
+import { TbToolsKitchen2 } from "react-icons/tb";
+import { FaRegKeyboard } from "react-icons/fa";
 import AirCover from "../../images/aircover.webp";
+//component
 import Follow from "./Follow";
+import Calender from "./Calender";
 
 const DetailContent = () => {
   return (
@@ -61,7 +68,7 @@ const DetailContent = () => {
           <img
             src={AirCover}
             alt=""
-            style={{ height: "20px", weight: "20px" }}
+            style={{ height: "20px", weight: "20px", borderRadius: "0px" }}
           />
 
           <p
@@ -125,7 +132,9 @@ const DetailContent = () => {
                 방 3개
               </BadContent>
               <BadContent style={{ fontSize: "14px" }}>
-                퀸사이즈 침대 1개, 소파 1개
+                퀸사이즈 침대 3개,
+                <br />
+                소파 1개
               </BadContent>
             </BadBox>
           </SleepZone>
@@ -133,12 +142,30 @@ const DetailContent = () => {
         {/* 숙소 편의 시설 */}
         <Wrap style={{ padding: "48px 0px" }}>
           <SleepP> 편의 시설 </SleepP>
-          <Facilities></Facilities>
 
+          <Facilities>
+            <AiOutlineWifi style={{ fontSize: "25px" }} />
+            ㅤ무선 인터넷
+          </Facilities>
+          <Facilities>
+            <AiOutlineCar style={{ fontSize: "25px" }} />
+            ㅤ건물 진입로 무료주차-1대 주차 가능
+          </Facilities>
+          <Facilities>
+            <IoIosSnow style={{ fontSize: "25px" }} />
+            ㅤ에어컨
+          </Facilities>
+          <Facilities>
+            <GiJumpingDog style={{ fontSize: "25px" }} />
+            ㅤ반려동물 환영
+          </Facilities>
+          <Facilities>
+            <TbToolsKitchen2 style={{ fontSize: "25px" }} />
+            ㅤ주방
+          </Facilities>
           <OverComment>
-            {" "}
             <p style={{ margin: "0px", padding: "13px 23px" }}>
-              편의시설35개 모두 보기
+              편의시설 20개 모두 보기
             </p>
           </OverComment>
         </Wrap>
@@ -152,7 +179,9 @@ const DetailContent = () => {
           </div>
 
           <Cfooter>
-            <div style={{ marginLeft: "24px", width: "16px" }}></div>
+            <div style={{ marginLeft: "24px", width: "16px" }}>
+              <FaRegKeyboard style={{ fontSize: "25px" }} />
+            </div>
             <Del> 날짜 지우기 </Del>
           </Cfooter>
         </Wrap1>
@@ -246,6 +275,7 @@ const BadContent = styled.div``;
 const Facilities = styled.div`
   display: flex;
   flex-direction: row;
+  margin: 20px 0;
 `;
 
 const HalfFac = styled.div`
@@ -256,6 +286,7 @@ const HalfFac = styled.div`
 
 const ImotiText = styled.div`
   display: flex;
+
   flex-direction: row;
 `;
 
@@ -266,7 +297,8 @@ const Cfooter = styled.div`
 `;
 
 const Del = styled.div`
-  margin-right: 10px;
+  margin-top: 5px;
+  margin-right: 50px;
   font-size: 14px;
   text-decoration: underline;
   font-weight: 600;
