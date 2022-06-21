@@ -7,7 +7,6 @@ import Signup from './pages/Signup';
 import DetailAccommodation from './pages/DetailAccommodation';
 import Main from './pages/Main';
 import PostAdd from './pages/PostAdd';
-import { NavigationContainer } from '@react-navigation/native';
 
 function App() {
     return (
