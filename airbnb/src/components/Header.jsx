@@ -20,12 +20,14 @@ const Header = () => {
             <StLink to={'/'}>
                 <StImg src={logo} />
             </StLink>
+            <div>
+            </div>
             <StLogInDiv>
                 {login ? (
                     <>
                         <Link to={'/PostAdd'}>
                             <StBtn>
-                                <div>{nickname}</div> 호스트등록
+                                <div>{nickname}</div> 호스트되기
                             </StBtn>
                         </Link>
                         <StBtn onClick={isLogOutHandler}> 로그아웃</StBtn>

@@ -4,12 +4,14 @@ import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { __addPost } from '../redux/modules/post';
-import './PostAdd.css'
+import '../css/PostAdd.css'
+// import Postcode from '../components/Postcode'
 
 
 const PostAdd = () => {
 
   const [selectedImages, setSelectedImages] = useState();
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const addressInputRef = useRef();
@@ -31,8 +33,8 @@ const PostAdd = () => {
 
     const form = new FormData();
 
-    for(let i = 0 ; i < selectedImages ; i++){
-      form.append("image", selectedImages);
+    for(let i = 0 ; i < selectedImages.length ; i++){
+      form.append("images", selectedImages[i]);
     }
 
     form.append("address", addressInputRef.current.value);

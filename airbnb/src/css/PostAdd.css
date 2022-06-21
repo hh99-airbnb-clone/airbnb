@@ -1,3 +1,8 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+
 input { 
   width : 700px;
   height : 25px;
@@ -10,7 +15,7 @@ select {
 }
 
 .button {
-  margin-top: 200px;
+  margin-top: 110px;
   margin-left: 550px;
   font-size: large;
   width: 158px;
