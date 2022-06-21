@@ -79,7 +79,7 @@ const AvgWrap = styled.div`
 `;
 
 const AvgBox = styled.div`
-  width: 50%;
+  width: 40%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -88,7 +88,7 @@ const AvgBox = styled.div`
 const AvgBar = styled.div`
   margin: 0 20px;
   width: 150px;
-  height: 5px;
+  height: 3px;
   border-radius: 5px;
   background-color: black;
 `;

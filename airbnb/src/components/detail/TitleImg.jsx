@@ -1,8 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import Mountain from "../../images/mountain.jpg";
+import { useSelector } from "react-redux";
 
 const TitleImg = () => {
+  const post_list = useSelector((state) => state.comment.imgs.img);
+
+  console.log(post_list);
   return (
     <>
       <ImgBox>
@@ -51,8 +55,8 @@ const SmallBoxBot = styled.div`
 
 const BigImg = styled.div`
   width: 560px;
-  height: 458px;
-  border-radius: 20px 0px 0px 20px;
+  height: 522px;
+  border-radius: 10px 0px 0px 10px;
   background-image: url(${(props) => props.src});
   background-size: cover;
   background-repeat: no-repeat;
@@ -70,7 +74,7 @@ const BigImg = styled.div`
 
 const SmallImg = styled.div`
   width: 272px;
-  height: 225px;
+  height: 257px;
   background-image: url(${(props) => props.src});
   background-repeat: no-repeat;
   background-position: center;
@@ -85,8 +89,8 @@ const SmallImg = styled.div`
 `;
 const SmallImgR = styled.div`
   width: 272px;
-  height: 225px;
-  border-radius: 0px 20px 0px 0px;
+  height: 257px;
+  border-radius: 0px 10px 0px 0px;
   background-image: url(${(props) => props.src});
   background-size: cover;
   background-repeat: no-repeat;
@@ -103,8 +107,8 @@ const SmallImgR = styled.div`
 
 const SmallImgRB = styled.div`
   width: 272px;
-  height: 225px;
-  border-radius: 0px 0px 20px 0px;
+  height: 257px;
+  border-radius: 0px 0px 10px 0px;
   background-image: url(${(props) => props.src});
   background-size: cover;
   background-repeat: no-repeat;

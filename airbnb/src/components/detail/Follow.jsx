@@ -15,7 +15,6 @@ const Follow = () => {
                 <span style={{ marginTop: "3px" }}>
                   <GoStar
                     style={{
-                      color: "#ff385c",
                       width: "13px",
                       marginRight: "3px",
                       paddingTop: "3px",
@@ -58,7 +57,7 @@ const Follow = () => {
                   window.alert("comming soon");
                 }}
               >
-                예약 가능 여부 보기
+                예약 하기
               </PinkButton>
             </NavContent>
             <Fuck
@@ -177,7 +176,13 @@ const PinkButton = styled.button`
   margin: 14px 0px;
   height: 50px;
   padding: 0px;
-  background-color: #e51d52;
+  background: rgb(229, 29, 82);
+  background: linear-gradient(
+    90deg,
+    rgba(229, 29, 82, 1) 0%,
+    rgba(255, 0, 108, 1) 68%,
+    rgba(240, 88, 29, 1) 100%
+  );
   border: none;
   border-radius: 10px;
   color: white;

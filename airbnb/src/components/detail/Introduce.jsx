@@ -3,7 +3,6 @@ import styled from "styled-components";
 import Follow from "./Follow";
 import TitleBox from "./TitleBox";
 import DetailContent from "./DetailContent";
-import FollowHeader from "./FollowHeader";
 
 const Introduce = () => {
   return (

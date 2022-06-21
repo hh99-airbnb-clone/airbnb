@@ -17,17 +17,21 @@ import Rules from "../components/detail/Rules";
 import DetailFooter from "../components/detail/DetailFooter";
 
 //모듈
-import { __loadComments } from "../redux/modules/Comment";
+import { __loadComments, __loadImgs } from "../redux/modules/Comment";
 import Introduce from "../components/detail/Introduce";
 
 const DetailAccommodation = () => {
   const dispatch = useDispatch();
   const paramsId = useParams();
+  // console.log(paramsId);
+  const img_list = useSelector((state) => state);
+  console.log(img_list);
 
   // 게시글 아이디 값 주기
   React.useEffect(() => {
-    dispatch(__loadComments(paramsId));
-  });
+    dispatch(__loadImgs(1));
+    // dispatch(__loadComments(paramsId));
+  }, []);
 
   return (
     <>
@@ -49,7 +53,7 @@ const DetailAccommodation = () => {
 export default DetailAccommodation;
 
 const Box = styled.div`
-  width: 75%;
+  width: 60%;
   margin: auto;
   display: flex;
   flex-direction: column;
