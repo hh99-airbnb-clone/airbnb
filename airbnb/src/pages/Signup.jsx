@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { __signup, __emailCheck, __nickNameCheck } from '../redux/modules/user';
 import styled from 'styled-components';
+import { Button, FormControl } from 'react-bootstrap';
 
 function Signup() {
     const dispatch = useDispatch();
@@ -74,15 +75,15 @@ function Signup() {
         // if (!nickNameCheck(nickName)) {
         //     window.alert('닉네임을 형식에 맞게 입력해주세요');
         // }
-        // if (password !== password2) {
-        //     return window.alert('비밀번호와 비밀번호 확인은 같아야 합니다.');
-        // }
+        if (password !== password2) {
+            return window.alert('비밀번호와 비밀번호 확인은 같아야 합니다.');
+        }
         dispatch(__signup({ email, nickName, password }));
     };
 
     return (
         <Wrap>
-            <Container onSubmit={handleSignUp}>
+            <Container1 onSubmit={handleSignUp}>
                 <h1>회원가입</h1>
                 <label htmlFor="id">
                     <p>아이디</p>
@@ -134,10 +135,10 @@ function Signup() {
                         placeholder="비밀번호 한 번 더 입력해 주세요"
                     />
                 </label>
-                <button type="submit">회원가입</button>
+                <ButtonSignUp type="submit">회원가입</ButtonSignUp>
                 <div>계정이 있으신가요?</div>
-                <button onClick={() => navigate('/login')}>로그인</button>
-            </Container>
+                <ButtonLogin onClick={() => navigate('/login')}>로그인</ButtonLogin>
+            </Container1>
         </Wrap>
     );
 }
@@ -151,7 +152,7 @@ const Wrap = styled.div`
     align-items: center;
 `;
 
-const Container = styled.div`
+const Container1 = styled.form`
     width: 500px;
     height: 660px;
     border: 1px solid black;
@@ -174,24 +175,24 @@ const Input = styled.input`
 // const Kid = styled.div`
 //     font-size: 11px;
 // `;
-// const ButtonLogin = styled.button`
-//     width: 97%;
-//     height: 40px;
-//     border: transparent;
-//     border-radius: 5px;
-//     margin: 10px 5px;
-//     color: white;
-//     font-size: 16px;
-//     background: linear-gradient(90deg, rgba(131, 58, 180, 1) 0%, rgba(255, 37, 37, 1) 78%, rgba(252, 176, 69, 1) 100%);
-// `;
+const ButtonLogin = styled.button`
+    width: 97%;
+    height: 40px;
+    border: transparent;
+    border-radius: 5px;
+    margin: 10px 5px;
+    color: white;
+    font-size: 16px;
+    background: linear-gradient(90deg, rgba(131, 58, 180, 1) 0%, rgba(255, 37, 37, 1) 78%, rgba(252, 176, 69, 1) 100%);
+`;
 
-// const ButtonSignUp = styled.button`
-//     width: 97%;
-//     height: 40px;
-//     border: transparent;
-//     border-radius: 5px;
-//     margin: 10px 5px;
-//     color: white;
-//     font-size: 16px;
-//     background: linear-gradient(90deg, rgba(131, 58, 180, 1) 0%, rgba(255, 37, 37, 1) 78%, rgba(252, 176, 69, 1) 100%);
-// `;
+const ButtonSignUp = styled.button`
+    width: 97%;
+    height: 40px;
+    border: transparent;
+    border-radius: 5px;
+    margin: 10px 5px;
+    color: white;
+    font-size: 16px;
+    background: linear-gradient(90deg, rgba(131, 58, 180, 1) 0%, rgba(255, 37, 37, 1) 78%, rgba(252, 176, 69, 1) 100%);
+`;

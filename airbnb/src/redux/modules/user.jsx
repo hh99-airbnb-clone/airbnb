@@ -31,6 +31,63 @@ export function nickNameCheckUser(user) {
 
 //middlewares
 
+// export const kakaoLogin = (code) => {
+//     return async function (dispatch) {
+//         try {
+//             const kakaoLogin = await axios({
+//                 url: `http://3.39.25.179:8080/oauth/kakao/callback?code=${code}`,
+//             });
+//             /* Token - Cookie */
+//             const accessToken = kakaoLogin.headers.authorization.split(' ')[1];
+//             setCookie('token', accessToken, {
+//                 path: '/',
+//                 expire: 'after60m',
+//             });
+//             dispatch(requestSuccess(true));
+//             alert('로그인 성공!');
+//         } catch (error) {
+//             console.log('카카오 로그인 실패', error);
+//         } finally {
+//             dispatch(serverRequest(false));
+//         }
+//     };
+// };
+
+export const kakaoLogin = (code) => {
+    console.log(code);
+    return async function (dispatch) {
+        await api
+            .get(`/user/kakao/callback?code=${code}`, {})
+            .then((kakaoLogin) => {
+                const accessToken = kakaoLogin.headers.authorization.split(' ')[1];
+                console.log(kakaoLogin);
+                localStorage.setItem('token', kakaoLogin.headers.authorization);
+                localStorage.setItem('email', code.email);
+                localStorage.setItem('nickname', kakaoLogin.profile.nickname);
+                dispatch(
+                    logInUser({
+                        login: true,
+                        nickname: kakaoLogin.profile.nickname,
+                        token: kakaoLogin.headers.authorization,
+                    })
+                );
+                setCookie('token', accessToken, {
+                    path: '/',
+                    expire: 'after60m',
+                });
+                setCookie('nickname', kakaoLogin.profile.nickname);
+
+                // window.location.assign('/');
+            })
+            .catch((error) => {
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                window.alert('회원가입에 실패했습니다. 다시 시도해주세요');
+                console.log(errorCode, errorMessage);
+            });
+    };
+};
+
 export const __signup = (payload) => {
     console.log(payload);
     return async function (dispatch, getState) {
@@ -64,7 +121,7 @@ export const __login = (payload) => {
             })
             .then((response) => {
                 console.log(response);
-                localStorage.setItem('token', response.headers.authorization);
+                localStorage.setItem('accessToken', response.headers.authorization);
                 localStorage.setItem('email', payload.email);
                 localStorage.setItem('nickname', response.data.nickname);
                 // dispatch(
@@ -96,39 +153,41 @@ export const __login = (payload) => {
     };
 };
 
-export const __emailCheck = (email) => {
+export const __emailCheck = (payload) => {
     return async function (dispatch, getState) {
-        console.log(email);
+        console.log(payload);
         await api
             .post('/signup/email', {
-                email: email.email,
+                email: payload.email,
             })
             .then((user) => {
+                console.log(user);
                 window.alert('사용가능한 이메일 입니다.');
             })
             .catch((error) => {
                 const errorCode = error.code;
                 const errorMessage = error.message;
-                window.alert('');
+                window.alert('사용할수 없는 이메일입니다.');
                 console.log(errorCode, errorMessage);
             });
     };
 };
 
-export const __nickNameCheck = (nickname) => {
+export const __nickNameCheck = (payload) => {
     return async function (dispatch, getState) {
-        console.log(nickname);
+        console.log(payload);
         await api
             .post('/signup/nickname', {
-                nickname: nickname.nickname,
+                nickname: payload.nickname,
             })
             .then((user) => {
+                console.log(user);
                 window.alert('사용가능한 닉네임 입니다.');
             })
             .catch((error) => {
                 const errorCode = error.code;
                 const errorMessage = error.message;
-                window.alert('');
+                window.alert('사용할수 없는 닉네임입니다.');
                 console.log(errorCode, errorMessage);
             });
     };
@@ -153,7 +212,7 @@ export const __nickNameCheck = (nickname) => {
 
 export const __logOut = () => {
     return function (dispatch) {
-        deleteCookie('is_token');
+        deleteCookie('accessToken');
         localStorage.clear();
         dispatch(__login(false));
         window.location.assign('/');
