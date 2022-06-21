@@ -4,7 +4,9 @@ import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { __addPost } from '../redux/modules/post';
-import './PostAdd.css';
+import '../css/PostAdd.css'
+// import Postcode from '../components/Postcode'
+
 
 const PostAdd = () => {
     const [selectedImages, setSelectedImages] = useState();
@@ -24,14 +26,15 @@ const PostAdd = () => {
         setSelectedImages(e.target.files);
     };
 
+
     const addPost = (e) => {
         e.preventDefault();
 
         const form = new FormData();
 
-        for (let i = 0; i < selectedImages; i++) {
-            form.append('image', selectedImages);
-        }
+    for(let i = 0 ; i < selectedImages.length ; i++){
+      form.append("images", selectedImages[i]);
+    }
 
         form.append('address', addressInputRef.current.value);
         form.append('title', titleInputRef.current.value);
@@ -42,6 +45,7 @@ const PostAdd = () => {
         form.append('room', roomInputRef.current.value);
         form.append('wifi', wifiInputRef.current.value);
         form.append('parking', parkingInputRef.current.value);
+
 
         dispatch(
             __addPost({
