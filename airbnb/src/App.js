@@ -7,6 +7,7 @@ import Signup from './pages/Signup';
 import DetailAccommodation from './pages/DetailAccommodation';
 import Main from './pages/Main';
 import PostAdd from './pages/PostAdd';
+import { NavigationContainer } from '@react-navigation/native';
 
 function App() {
     return (
@@ -15,10 +16,9 @@ function App() {
             <Routes>
                 <Route path="/login" element={<Login />} />
                 <Route path="/Signup" element={<Signup />} />
-
                 <Route path="/" element={<Main />} />
-                <Route path="/PostAdd" element={<PostAdd />} />
                 <Route path="/detail" element={<DetailAccommodation />} />
+                <Route path="/PostAdd" element={<PostAdd />} />
             </Routes>
         </>
     );

@@ -1,19 +1,36 @@
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import logo from '../images/logo.png';
+
 import { Link } from 'react-router-dom';
 import { __logOut } from '../redux/modules/user';
+import Modal from 'react-modal';
+import { useState } from 'react';
+import { __login } from '../redux/modules/user';
+import { kakaoLogin } from '../redux/modules/user';
 
 const Header = () => {
     const dispatch = useDispatch();
-    const login = window.localStorage.getItem('token');
+    const [loginModal, setLoginModal] = useState(false);
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+
+    const login = window.localStorage.getItem('accessToken');
     console.log(login);
     const nickname = window.localStorage.getItem('nickname');
+
+    const handleLogin = () => {
+        if (email === '' || password === '') {
+            window.alert('이메일, 비밀번호 모두 입력해주세요.');
+        }
+        dispatch(__login({ email, password }));
+    };
 
     const isLogOutHandler = () => {
         dispatch(__logOut());
         alert('로그아웃 되었습니다.');
     };
+    if (window.location.pathname === '/PostAdd') return null;
 
     return (
         <StHeader>
@@ -34,6 +51,54 @@ const Header = () => {
                     <>
                         <Link to={'/Login'}>
                             <StBtn>로 그 인</StBtn>
+                            {/* onClick={() => setLoginModal(true)} */}
+                            {/* <Modal isOpen={loginModal}>
+                            <Wrap>
+                                <Container>
+                                    <StImg style={{ width: '50px', height: '50px' }} src={ESC} />
+                                    <Title>로그인 또는 회원가입</Title>
+                                    <Br />
+                                    <label htmlFor="id">
+                                        <h2>에어비앤비에 오신 것을 환영합니다.</h2>
+                                        <Input
+                                            id="id"
+                                            type="email"
+                                            required
+                                            onChange={(e) => {
+                                                setEmail(e.target.value);
+                                            }}
+                                            placeholder="이메일을 확인해주세요."
+                                        />
+                                    </label>
+                                    <label htmlFor="pw">
+                                        <Input
+                                            id="pw"
+                                            required
+                                            type="password"
+                                            onChange={(e) => {
+                                                setPassword(e.target.value);
+                                            }}
+                                            placeholder="비밀번호를 입력해 주세요"
+                                        />
+                                    </label>
+                                    <br />
+                                    <Kid>
+                                        이메일로 확인합니다. 이메일 확인 갈줄 알았죠? 이메일은 확인안합니다. 그래서
+                                        요금도 안나가죠.
+                                    </Kid>
+                                    <div>개인정보처리방침</div>
+                                    <ButtonLogin onClick={handleLogin}>계속</ButtonLogin>
+                                    <p>계정이 있신가요?</p>
+                                    <ButtonSignUp
+                                    // onClick={() => {
+                                    //     navigate('/signup');
+                                    // }}
+                                    >
+                                        회원가입
+                                    </ButtonSignUp>
+                                </Container>
+                            </Wrap>
+                        </Modal> */}
                         </Link>
                         <Link to={'/Signup'}>
                             <StBtn>회원가입</StBtn>
@@ -98,4 +163,56 @@ const StLogInDiv = styled.div`
     height: 50px;
     margin-right: 7%;
     background: white;
+`;
+
+const Wrap = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-items: center;
+    align-items: center;
+`;
+
+const Container = styled.div`
+    width: 500px;
+    height: 660px;
+    border: 1px solid black;
+    border-radius: 15px;
+    padding: 5px 20px;
+`;
+const Title = styled.h4`
+    text-align: center;
+`;
+const Br = styled.br`
+    color: black;
+`;
+const Input = styled.input`
+    width: 97%;
+    height: 45px;
+    margin: 0px;
+    align-items: center;
+    border-radius: 7px;
+`;
+const Kid = styled.div`
+    font-size: 11px;
+`;
+const ButtonLogin = styled.button`
+    width: 97%;
+    height: 40px;
+    border: transparent;
+    border-radius: 5px;
+    margin: 10px 5px;
+    color: white;
+    font-size: 16px;
+    background: linear-gradient(90deg, rgba(131, 58, 180, 1) 0%, rgba(255, 37, 37, 1) 78%, rgba(252, 176, 69, 1) 100%);
+`;
+
+const ButtonSignUp = styled.button`
+    width: 97%;
+    height: 40px;
+    border: transparent;
+    border-radius: 5px;
+    margin: 10px 5px;
+    color: white;
+    font-size: 16px;
+    background: linear-gradient(90deg, rgba(131, 58, 180, 1) 0%, rgba(255, 37, 37, 1) 78%, rgba(252, 176, 69, 1) 100%);
 `;

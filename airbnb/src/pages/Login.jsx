@@ -3,6 +3,8 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { __login } from '../redux/modules/user';
+import { KAKAO_AUTH_URL } from '../shared/Kakao';
+import { CloseButton } from 'react-bootstrap';
 
 const Login = () => {
     const dispatch = useDispatch();
@@ -18,6 +20,7 @@ const Login = () => {
     return (
         <Wrap>
             <Container>
+                <CloseButton />
                 <Title>로그인 또는 회원가입</Title>
                 <Br />
                 <label htmlFor="id">
@@ -47,7 +50,21 @@ const Login = () => {
                 <Kid>이메일로 확인합니다. 이메일 확인 갈줄 알았죠? 이메일은 확인안합니다. 그래서 요금도 안나가죠.</Kid>
                 <div>개인정보처리방침</div>
                 <ButtonLogin onClick={handleLogin}>계속</ButtonLogin>
+
+                <KakaoWrap>
+                    <a href={KAKAO_AUTH_URL}>
+                        <span
+                            style={{
+                                fontSize: '20px',
+                                color: '#181700',
+                            }}
+                        >
+                            카카오 로그인
+                        </span>
+                    </a>
+                </KakaoWrap>
                 <p>계정이 있신가요?</p>
+
                 <ButtonSignUp
                     onClick={() => {
                         navigate('/signup');
@@ -112,4 +129,16 @@ const ButtonSignUp = styled.button`
     color: white;
     font-size: 16px;
     background: linear-gradient(90deg, rgba(131, 58, 180, 1) 0%, rgba(255, 37, 37, 1) 78%, rgba(252, 176, 69, 1) 100%);
+`;
+const KakaoWrap = styled.div`
+    width: 97%;
+    height: 40px;
+
+    margin: 10px 5px;
+    border-radius: 5px;
+    background-color: #ffe926;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
 `;
