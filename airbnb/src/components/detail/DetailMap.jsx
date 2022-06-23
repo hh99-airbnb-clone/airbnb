@@ -1,18 +1,61 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import { ImHome } from "react-icons/im";
-import { Map, MapMarker, CustomOverlayMap } from "react-kakao-maps-sdk";
+import { Map, CustomOverlayMap } from "react-kakao-maps-sdk";
 import { useSelector } from "react-redux";
+import home from "../../images/home.png";
+
+const { kakao } = window;
 
 const DetailMap = () => {
-  const post_list = useSelector((state) => state.posts);
+  const post_list = useSelector((state) => state.comment.posts);
+  console.log(post_list);
+  useEffect(() => {
+    const container = document.getElementById("myMap");
+    const options = {
+      center: new kakao.maps.LatLng(35.12, 129.1),
+      level: 3,
+    };
+    // 지도를 생성합니다.
+    const map = new kakao.maps.Map(container, options);
+    // 주소-좌표 변환 객체를 생성합니다.
+    const geocoder = new kakao.maps.services.Geocoder();
+    // 주소로 좌표를 검색합니다..
+    geocoder.addressSearch(post_list.address, function (result, status) {
+      // 정상적으로 검색이 완료됐으면
+      if (status === kakao.maps.services.Status.OK) {
+        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
 
-  if (!post_list) return;
+        // 결과값으로 받은 위치를 마커로 표시합니다
+
+        var content = `<div class="CustomOut">
+          <div class="CustomMarker"/>
+            </div>
+            </div>`;
+
+        var customOverlay = new kakao.maps.CustomOverlay({
+          position: coords,
+          content: content,
+        });
+        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+        map.setCenter(coords);
+        customOverlay.setMap(map);
+      }
+    });
+  }, []);
+
   return (
     <MapAll>
       <h2 style={{ margin: "45px 0px 25px 0px" }}>호스팅 지역</h2>
+      <div
+        id="myMap"
+        style={{
+          width: "100%",
+          height: "500px",
+        }}
+      ></div>
 
-      <Map
+      {/* <Map
         // 지도를 표시할 Container
         center={{
           // 지도의 중심좌표
@@ -45,13 +88,9 @@ const DetailMap = () => {
             </CustomMarker>
           </CustomOut>
         </CustomOverlayMap>
-      </Map>
-      <h4>El Nido, MIMAROPA, 필리핀</h4>
-
-      <p>
-        우리는 지역 어부들과 탈라카넨 섬을 공유하고 있습니다. 작은 어촌마을은
-        언제 어디서나 방문할 수 있는 제주도의 서쪽에 위치해 있습니다!
-      </p>
+      </Map> */}
+      <h4>{post_list.address}</h4>
+      <p>{post_list.content}</p>
       <span
         style={{
           fontWeight: "600",
@@ -87,20 +126,43 @@ const MapAll = styled.div`
     width: 100%;
     margin: 0px 0px 5px 0px;
   }
-`;
-const CustomMarker = styled.div`
-  margin: auto;
-  width: 56px;
-  height: 56px;
-  background-color: #e51d52;
-  border-radius: 28px;
-`;
 
-const CustomOut = styled.div`
-  display: flex;
-  background-color: #e51d52;
-  background-color: rgba(255, 0, 51, 0.176);
-  width: 120px;
-  height: 120px;
-  border-radius: 60px;
+  .CustomMarker {
+    margin: auto;
+    width: 56px;
+    height: 56px;
+    background-color: #e51d52;
+    border-radius: 28px;
+  }
+
+  .CustomOut {
+    display: flex;
+    background-color: #e51d52;
+    background-color: rgba(255, 0, 51, 0.176);
+    width: 120px;
+    height: 120px;
+    border-radius: 60px;
+  }
+
+  .ishome {
+    z-index: 5000;
+    width: 120px;
+    height: 120px;
+  }
 `;
+// const CustomMarker = styled.div`
+//   margin: auto;
+//   width: 56px;
+//   height: 56px;
+//   background-color: #e51d52;
+//   border-radius: 28px;
+// `;
+
+// const CustomOut = styled.div`
+//   display: flex;
+//   background-color: #e51d52;
+//   background-color: rgba(255, 0, 51, 0.176);
+//   width: 120px;
+//   height: 120px;
+//   border-radius: 60px;
+// `;

@@ -12,6 +12,7 @@ import CommentAvg from "../components/detail/CommentAvg";
 import DetailMap from "../components/detail/DetailMap";
 import Rules from "../components/detail/Rules";
 import DetailFooter from "../components/detail/DetailFooter";
+import Introduce from "../components/detail/Introduce";
 
 //모듈
 import {
@@ -19,7 +20,6 @@ import {
   __loadComments,
   __loadPosts,
 } from "../redux/modules/Comment";
-import Introduce from "../components/detail/Introduce";
 
 const DetailAccommodation = () => {
   const dispatch = useDispatch();
