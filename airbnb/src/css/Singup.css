@@ -1,12 +1,5 @@
 .Wrap {
-    /* box-shadow: 1000px rgba(0, 0, 0, 0.233); */
-    /* width: 100%;
-    height: 100%;
-    display: flex;
-    z-index: 99;
-    position: absolute;
-    margin-right: 5%; */
-    padding-top: 3%;
+    padding-top: 13%;
     flex-direction: column;
     justify-items: center;
     align-items: center;
@@ -17,7 +10,6 @@
     bottom: 0;
     left: 0;
     z-index: 99;
-    background-color: rgba(0, 0, 0, 0.6);
     margin-right: 10%;
 }
 
@@ -42,6 +34,7 @@
     text-align: center;
     font-size: xx-large;
     font-weight: 700;
+    margin-bottom: 40px;
 }
 
 .Input {
@@ -51,23 +44,13 @@
     align-items: center;
     border-radius: 10px;
     border-width: 1px;
+    margin: 10px 0px;
     border-color: rgba(128, 128, 128, 0.322);
 }
 
 .Kid {
     font-size: 11px;
 }
-
-/* .KakaoWrap {
-    width: 97%;
-    height: 40px;
-    margin: 10px 5px;
-    border-radius: 5px;
-    background-color: #ffe926;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-} */
 
 .ButtonLogin1 {
     width: 97%;
@@ -82,6 +65,18 @@
 }
 
 .ButtonSignUp1 {
+    width: 97%;
+    height: 40px;
+    border: transparent;
+    border-radius: 5px;
+    margin: 10px 5px;
+    color: white;
+    font-size: 16px;
+
+    background: linear-gradient(90deg, rgba(131, 58, 180, 1) 0%, rgba(255, 37, 37, 1) 78%, rgba(252, 176, 69, 1) 100%);
+}
+
+.check {
     width: 97%;
     height: 40px;
     border: transparent;

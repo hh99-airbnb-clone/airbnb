@@ -103,14 +103,13 @@ const Wrap = styled.div`
 `;
 
 const StHeader = styled.div`
-    flex-direction: row;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
-    width: 100%;
+    width: 80vw;
     height: 15vh;
-    min-height: 100px;
-
+    min-height: 80px;
+    margin: 0px 30px 30px 0px;
     background-color: white;
 `;
 
@@ -120,14 +119,16 @@ const StLink = styled(Link)`
 `;
 
 const StImg1 = styled.img`
-    height: 80px;
-    margin-top: 1%;
+    width: 130px;
+    height: 58px;
     margin-left: 5vw;
+    margin-right: 15vw;
 `;
 const StImg4 = styled.img`
     flex-direction: row;
     justify-content: flex-end;
-    height: 80px;
+    width: 400px;
+    height: 58px;
 `;
 
 const StImgWrap = styled.div`
@@ -186,9 +187,9 @@ const StBtn = styled.button`
 const StLogInDiv = styled.div`
     position: relative;
     display: flex;
-    justify-content: center;
-    width: 10vw;
-    min-width: 300px;
+    justify-content: space-between;
+    width: 30vw;
+    min-width: 500px;
     height: 50px;
     margin-right: 7%;
     background: white;
