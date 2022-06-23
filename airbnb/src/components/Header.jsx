@@ -16,7 +16,7 @@ const Header = () => {
     const [password, setPassword] = useState('');
 
     const login = window.localStorage.getItem('accessToken');
-    console.log(login);
+
     const nickname = window.localStorage.getItem('nickname');
 
     const handleLogin = () => {

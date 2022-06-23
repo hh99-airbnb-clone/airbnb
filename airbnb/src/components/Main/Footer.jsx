@@ -1,9 +1,20 @@
+//메인페이지 하단 FOOTER 컴포넌트
+
 import React from 'react'
-import logo from '../../asset/자오선.png'
+import { TbWorld } from 'react-icons/tb'
+import { MdOutlineMap } from "react-icons/md";
+import styled from 'styled-components';
+
 
 const Footer = () => {
   return (
     <>
+      <div style={{width:"100%", height:"10px"}}>
+        <Mybutton>
+              <span>지도 표시하기</span>
+              <MdOutlineMap style={{ width: '15px', height: '15px' }} />
+        </Mybutton>
+      </div>
       <div className='footer'>
         <div className='footerLeft'>
           <span>© 2022 Airbnb, Inc. · </span>
@@ -14,7 +25,7 @@ const Footer = () => {
           <span>회사 세부정보</span>
         </div>
         <div className='footerRight'>
-          <img src={logo} alt='' style={{ width: '15px', height: '15px', marginRight: '10px' }} />
+          <TbWorld style={{width : '20px', height : '15px'}}/>
           <span style={{ marginRight: '8px' }}>한국어 (KR) </span>
           <span style={{ marginRight: '15px' }}>₩  KRW</span>
           <span style={{ marginRight: '8px' }}>지원 및 참고 자료 ⋀</span>
@@ -28,3 +39,24 @@ const Footer = () => {
 }
 
 export default Footer
+
+const Mybutton = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  border: 1px solid black;
+  border-radius: 24px;
+  background-color: black;
+  color: white;
+  width: 150px;
+  height: 50px;
+  box-sizing: border-box;
+  font-size: 14px;
+  padding: 14px 19px !important;
+  position: inline-block;
+  margin: auto;
+  position: fixed;
+  bottom: 130px;
+  left: 50%;
+  transform: translate(-50%, 0);
+`
