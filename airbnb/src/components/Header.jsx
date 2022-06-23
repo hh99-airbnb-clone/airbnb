@@ -1,138 +1,151 @@
 import { useDispatch, useSelector } from 'react-redux';
+import { useState } from 'react';
 import styled from 'styled-components';
 import logo from '../images/logo.png';
-
+import line3 from '../images/line3.png';
+import user from '../images/user.png';
 import { Link } from 'react-router-dom';
 import { __logOut } from '../redux/modules/user';
-import Modal from 'react-modal';
-import { useState } from 'react';
 import { __login } from '../redux/modules/user';
-import { kakaoLogin } from '../redux/modules/user';
+import Login from '../pages/Login';
+import { Outlet } from 'react-router';
+import Signup from '../pages/Signup';
 
 const Header = () => {
     const dispatch = useDispatch();
-    const [loginModal, setLoginModal] = useState(false);
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-
-    const login = window.localStorage.getItem('accessToken');
+    //모덜연결해주는 useState
+    const [logIn, setLogIn] = useState(false);
+    const [signUp, setSignUp] = useState(false);
+    // const [image, setImage] = useState(false)
+    //로그인하였을때 해더부분에서 인식하게해주는 토큰, 닉네임은 노출
+    const login = window.localStorage.getItem('token');
     console.log(login);
     const nickname = window.localStorage.getItem('nickname');
-
-    const handleLogin = () => {
-        if (email === '' || password === '') {
-            window.alert('이메일, 비밀번호 모두 입력해주세요.');
-        }
-        dispatch(__login({ email, password }));
-    };
 
     const isLogOutHandler = () => {
         dispatch(__logOut());
         alert('로그아웃 되었습니다.');
     };
-    if (window.location.pathname === '/PostAdd') return null;
 
     return (
-        <StHeader>
-            <StLink to={'/'}>
-                <StImg src={logo} />
-            </StLink>
-            <div>
-            </div>
-            <StLogInDiv>
-                {login ? (
-                    <>
-                        <Link to={'/PostAdd'}>
-                            <StBtn>
-                                <div>{nickname}</div> 호스트되기
-                            </StBtn>
-                        </Link>
-                        <StBtn onClick={isLogOutHandler}> 로그아웃</StBtn>
-                    </>
-                ) : (
-                    <>
-                        <Link to={'/Login'}>
-                            <StBtn>로 그 인</StBtn>
-                            {/* onClick={() => setLoginModal(true)} */}
-                            {/* <Modal isOpen={loginModal}>
-                            <Wrap>
-                                <Container>
-                                    <StImg style={{ width: '50px', height: '50px' }} src={ESC} />
-                                    <Title>로그인 또는 회원가입</Title>
-                                    <Br />
-                                    <label htmlFor="id">
-                                        <h2>에어비앤비에 오신 것을 환영합니다.</h2>
-                                        <Input
-                                            id="id"
-                                            type="email"
-                                            required
-                                            onChange={(e) => {
-                                                setEmail(e.target.value);
-                                            }}
-                                            placeholder="이메일을 확인해주세요."
-                                        />
-                                    </label>
-                                    <label htmlFor="pw">
-                                        <Input
-                                            id="pw"
-                                            required
-                                            type="password"
-                                            onChange={(e) => {
-                                                setPassword(e.target.value);
-                                            }}
-                                            placeholder="비밀번호를 입력해 주세요"
-                                        />
-                                    </label>
-                                    <br />
-                                    <Kid>
-                                        이메일로 확인합니다. 이메일 확인 갈줄 알았죠? 이메일은 확인안합니다. 그래서
-                                        요금도 안나가죠.
-                                    </Kid>
-                                    <div>개인정보처리방침</div>
-                                    <ButtonLogin onClick={handleLogin}>계속</ButtonLogin>
-                                    <p>계정이 있신가요?</p>
-                                    <ButtonSignUp
-                                    // onClick={() => {
-                                    //     navigate('/signup');
-                                    // }}
+        <>
+            <Wrap>
+                <StHeader>
+                    <StLink to={'/'}>
+                        <StImg1 src={logo} />
+                    </StLink>
+                    <StLogInDiv>
+                        {login ? (
+                            <>
+                                <Link to={'/PostAdd'}>
+                                    <StBtn>
+                                        <div>{nickname}</div> 호스트되기
+                                    </StBtn>
+                                </Link>
+                                <StBtn onClick={isLogOutHandler}> 로그아웃</StBtn>
+                            </>
+                        ) : (
+                            <>
+                                <div>
+                                    <StImgWrap>
+                                        <StImgBox>
+                                            <StImg2 src={line3} />
+                                            <StImg3 src={user} />
+                                        </StImgBox>
+                                    </StImgWrap>
+
+                                    <StBtn
+                                        onClick={() => {
+                                            setLogIn(true);
+                                        }}
+                                    >
+                                        로 그 인
+                                    </StBtn>
+                                    {logIn && <Login closeLogin={setLogIn} setSignUp={setSignUp} />}
+
+                                    <StBtn
+                                        onClick={() => {
+                                            setSignUp(true);
+                                        }}
                                     >
                                         회원가입
-                                    </ButtonSignUp>
-                                </Container>
-                            </Wrap>
-                        </Modal> */}
-                        </Link>
-                        <Link to={'/Signup'}>
-                            <StBtn>회원가입</StBtn>
-                        </Link>
-                    </>
-                )}
-            </StLogInDiv>
-        </StHeader>
+                                    </StBtn>
+                                    {signUp && <Signup closeSignup={setSignUp} setLogIn={setLogIn} />}
+                                </div>
+                            </>
+                        )}
+                    </StLogInDiv>
+                </StHeader>
+                <Outlet />
+            </Wrap>
+        </>
     );
 };
 
 export default Header;
 
+const Wrap = styled.div`
+    padding-top: 7%;
+    flex-direction: column;
+    justify-items: center;
+    align-items: center;
+    display: flex;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 99;
+`;
+
 const StHeader = styled.div`
+    width: 100%;
+    height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 100vw;
-    height: 15vh;
-    min-height: 150px;
+    width: 80vw;
+    height: 8vh;
+    min-height: 100px;
     margin: 30px 0px;
     background-color: white;
 `;
 
 const StLink = styled(Link)`
     text-decoration: none;
+    padding: 0px 100px;
 `;
 
-const StImg = styled.img`
-    width: 150px;
-    height: 50px;
-    margin: 20px;
+const StImg1 = styled.img`
+    width: 130px;
+    height: 58px;
+`;
+
+const StImgWrap = styled.div`
+    display: flex;
+    justify-content: end;
+`;
+const StImgBox = styled.div`
+    width: 90px;
+    height: 40px;
+    border: 1px solid gray;
+    border-radius: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+`;
+
+const StImg2 = styled.img`
+    width: 25px;
+    height: 25px;
+    margin-right: 15px;
+    background-color: white;
+`;
+
+const StImg3 = styled.img`
+    width: 25px;
+    height: 25px;
+    background-color: white;
 `;
 
 const StBtn = styled.button`
@@ -165,56 +178,4 @@ const StLogInDiv = styled.div`
     height: 50px;
     margin-right: 7%;
     background: white;
-`;
-
-const Wrap = styled.div`
-    display: flex;
-    flex-direction: column;
-    justify-items: center;
-    align-items: center;
-`;
-
-const Container = styled.div`
-    width: 500px;
-    height: 660px;
-    border: 1px solid black;
-    border-radius: 15px;
-    padding: 5px 20px;
-`;
-const Title = styled.h4`
-    text-align: center;
-`;
-const Br = styled.br`
-    color: black;
-`;
-const Input = styled.input`
-    width: 97%;
-    height: 45px;
-    margin: 0px;
-    align-items: center;
-    border-radius: 7px;
-`;
-const Kid = styled.div`
-    font-size: 11px;
-`;
-const ButtonLogin = styled.button`
-    width: 97%;
-    height: 40px;
-    border: transparent;
-    border-radius: 5px;
-    margin: 10px 5px;
-    color: white;
-    font-size: 16px;
-    background: linear-gradient(90deg, rgba(131, 58, 180, 1) 0%, rgba(255, 37, 37, 1) 78%, rgba(252, 176, 69, 1) 100%);
-`;
-
-const ButtonSignUp = styled.button`
-    width: 97%;
-    height: 40px;
-    border: transparent;
-    border-radius: 5px;
-    margin: 10px 5px;
-    color: white;
-    font-size: 16px;
-    background: linear-gradient(90deg, rgba(131, 58, 180, 1) 0%, rgba(255, 37, 37, 1) 78%, rgba(252, 176, 69, 1) 100%);
 `;
