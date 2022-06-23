@@ -1,5 +1,4 @@
 import React from "react";
-import Mountain from "../images/mountain.jpg";
 import styled from "styled-components";
 import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";

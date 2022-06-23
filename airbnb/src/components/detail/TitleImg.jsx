@@ -1,6 +1,5 @@
-import React, { useEffect } from "react";
+import React from "react";
 import styled from "styled-components";
-import Mountain from "../../images/mountain.jpg";
 import { useSelector } from "react-redux";
 
 const TitleImg = () => {
@@ -10,17 +9,17 @@ const TitleImg = () => {
   return (
     <>
       <ImgBox>
-        <BigImg src={Mountain}></BigImg>
+        <BigImg></BigImg>
         <SmallBox>
-          <SmallImg src={Mountain} />
+          <SmallImg />
           <SmallBoxBot>
-            <SmallImg src={Mountain} />
+            <SmallImg />
           </SmallBoxBot>
         </SmallBox>
         <SmallBox>
-          <SmallImgR src={Mountain} />
+          <SmallImgR />
           <SmallBoxBot>
-            <SmallImgRB src={Mountain} />
+            <SmallImgRB />
           </SmallBoxBot>
         </SmallBox>
       </ImgBox>

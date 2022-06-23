@@ -1,17 +1,21 @@
+//호스팅 페이지(postAdd)
+
 import React from 'react';
 import { useRef } from 'react';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { __addPost } from '../redux/modules/post';
 import '../css/PostAdd.css'
-// import Postcode from '../components/Postcode'
+import { FaAirbnb } from "react-icons/fa";
 
 
 const PostAdd = () => {
-    const [selectedImages, setSelectedImages] = useState();
+
     const dispatch = useDispatch();
     const navigate = useNavigate();
+
+    const [selectedImages, setSelectedImages] = useState([]);
     const addressInputRef = useRef();
     const titleInputRef = useRef();
     const feeInputRef = useRef();
@@ -26,14 +30,18 @@ const PostAdd = () => {
         setSelectedImages(e.target.files);
     };
 
-
     const addPost = (e) => {
         e.preventDefault();
+
+        if(selectedImages === null || selectedImages.length !== 5){
+            alert("이미지는 5장 넣어주세요")
+            return;
+        } 
 
         const form = new FormData();
 
     for(let i = 0 ; i < selectedImages.length ; i++){
-      form.append("images", selectedImages[i]);
+        form.append("images", selectedImages[i]);
     }
 
         form.append('address', addressInputRef.current.value);
@@ -46,7 +54,6 @@ const PostAdd = () => {
         form.append('wifi', wifiInputRef.current.value);
         form.append('parking', parkingInputRef.current.value);
 
-
         dispatch(
             __addPost({
                 formData: form,
@@ -57,7 +64,14 @@ const PostAdd = () => {
 
     return (
         <>
-            <div className="leftBox">호스팅을 시작합니다.</div>
+            <div className="leftBox">
+                <Link to={'/'}>
+                <FaAirbnb style={{ position: 'fixed', left :'50px', marginTop : '30px', textDecoration : 'none', color : 'white', width : '35px', height : '35px'}}/>
+                </Link>
+                <span>호스팅을 시작합니다.</span>
+            </div>
+
+            {/* 다중 이미지 파일&input 데이터 전송을 위해 formData 사용 */}
             <form className="postBox">
                 <h4>숙소 주소를 입력해주세요.</h4>
                 <input ref={addressInputRef} type="text" />

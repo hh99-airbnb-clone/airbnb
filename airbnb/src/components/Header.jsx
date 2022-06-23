@@ -13,6 +13,8 @@ import Signup from '../pages/Signup';
 
 const Header = () => {
     const dispatch = useDispatch();
+
+
     //모덜연결해주는 useState
     const [logIn, setLogIn] = useState(false);
     const [signUp, setSignUp] = useState(false);
@@ -20,6 +22,7 @@ const Header = () => {
     //로그인하였을때 해더부분에서 인식하게해주는 토큰, 닉네임은 노출
     const login = window.localStorage.getItem('token');
     console.log(login);
+
     const nickname = window.localStorage.getItem('nickname');
 
     const isLogOutHandler = () => {
