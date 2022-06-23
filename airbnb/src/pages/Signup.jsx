@@ -70,7 +70,6 @@ function Signup({ closeSignup, setLogIn }) {
                 </button>
                 <div className="Title1">회원가입</div>
                 <label htmlFor="id">
-                    <div className="SubTitle">아이디</div>
                     <input
                         className="Input"
                         id="id"
@@ -82,10 +81,11 @@ function Signup({ closeSignup, setLogIn }) {
                         }}
                         placeholder="이메일을 다시확인해 주세요."
                     />
-                    <button onClick={emailCheck}>아이디체크</button>
+                    <button className="check" onClick={emailCheck}>
+                        이메일 체크
+                    </button>
                 </label>
                 <label htmlFor="nic">
-                    <div className="SubTitle">닉네임</div>
                     <input
                         className="Input"
                         id="nic"
@@ -95,10 +95,11 @@ function Signup({ closeSignup, setLogIn }) {
                         }}
                         placeholder="닉네임 영문/숫자 -,_ 포함 작성해 주세요"
                     />
-                    <button onClick={nickNameCheck}>닉네임체크</button>
+                    <button className="check" onClick={nickNameCheck}>
+                        닉네임 체크
+                    </button>
                 </label>
                 <label htmlFor="pw">
-                    <div className="SubTitle">비밀번호</div>
                     <input
                         className="Input"
                         id="pw"
@@ -111,7 +112,6 @@ function Signup({ closeSignup, setLogIn }) {
                     />
                 </label>
                 <label htmlFor="pw2">
-                    <div className="SubTitle">비밀번호 확인</div>
                     <input
                         className="Input"
                         id="pw2"

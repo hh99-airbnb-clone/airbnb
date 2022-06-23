@@ -1,8 +1,8 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
-import Header from "./components/Header";
-//컴포넌트
 
+//컴포넌트
+import Header from "./components/Header";
 import DetailAccommodation from "./pages/DetailAccommodation";
 import Main from "./pages/Main";
 import PostAdd from "./pages/PostAdd";

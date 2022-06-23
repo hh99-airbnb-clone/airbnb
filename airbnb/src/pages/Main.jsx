@@ -13,7 +13,6 @@ import { __loadPosts } from "../redux/modules/post";
 import Footer from "../components/Main/Footer";
 import SlickCategory from "../components/Main/SlickCategory";
 
-
 //css
 import "../css/Main.css";
 import { GoStar } from "react-icons/go";
