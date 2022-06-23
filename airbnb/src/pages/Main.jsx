@@ -30,7 +30,6 @@ const Main = () => {
   if (!posts) return;
   return (
     <>
-      <Header />
       <SlickCategory />
       <PostBox>
         {posts?.map((post) => {
