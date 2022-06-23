@@ -172,7 +172,7 @@ const StBtn = styled.button`
   color: black;
   font-size: 16px;
   font-weight: bold;
-  margin: 0px 10px;
+  margin: 0px 0px;
 
   border: none;
   transition: transform 0.3s ease-in-out;
