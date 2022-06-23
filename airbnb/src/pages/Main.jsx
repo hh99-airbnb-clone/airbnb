@@ -2,19 +2,26 @@
 
 import React from "react";
 import styled from "styled-components";
-import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import "../css/Main.css";
-import {getCookie} from "../shared/cookie"
 import { __loadPosts } from "../redux/modules/post";
-import { GoStar } from "react-icons/go";
+import {getCookie} from "../shared/cookie"
+
+//컴포넌트
 import Footer from "../components/Main/Footer";
 import SlickCategory from "../components/Main/SlickCategory";
 import Header from "../../src/components/Header";
 
+//css
+import "../css/Main.css";
+import { GoStar } from "react-icons/go";
+
+
+
 
 const Main = () => {
+
   const { posts } = useSelector((state) => state.postReducer);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -54,27 +61,28 @@ dispatch(__loadPosts(token))
       <Footer />
     </>
   );
+
 };
 
 export default Main;
 
 const PostBox = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-  justify-content: space-around;
-  align-content: center;
-  margin-top: 10px;
-  margin-left: 40px;
-  padding: 100px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    justify-content: space-around;
+    align-content: center;
+    margin-top: 10px;
+    margin-left: 60px;
+    padding: 100px;
 `;
 
 const Posts = styled.div`
-  width: 300px;
-  margin-top: 32px;
+    width: 300px;
+    margin-top: 32px;
 `;
 
 const NameBox = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 `;
