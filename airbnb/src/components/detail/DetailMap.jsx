@@ -1,16 +1,12 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
 import { ImHome } from "react-icons/im";
-import { Map, CustomOverlayMap } from "react-kakao-maps-sdk";
 import { useSelector } from "react-redux";
-import home from "../../images/home.png";
 
 const { kakao } = window;
 
 const DetailMap = () => {
   const post_list = useSelector((state) => state.comment.posts);
-  const address_list = useSelector((state) => state.comment.posts.address);
-  console.log(post_list);
 
   useEffect(() => {
     const container = document.getElementById("myMap");
@@ -30,7 +26,8 @@ const DetailMap = () => {
 
         // 결과값으로 받은 위치를 마커로 표시합니다
 
-        var content = `<div class="CustomOut">
+        var content = `
+        <div class="CustomOut">
           <div class="CustomMarker"/>
             </div>
             </div>`;
