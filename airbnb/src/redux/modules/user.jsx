@@ -101,7 +101,7 @@ export const __signup = (payload) => {
             .then((user) => {
                 console.log(user);
                 window.alert('회원가입이 완료되었습니다.');
-                window.location.assign('/login');
+                window.location.assign('/');
             })
             .catch((error) => {
                 const errorCode = error.code;
