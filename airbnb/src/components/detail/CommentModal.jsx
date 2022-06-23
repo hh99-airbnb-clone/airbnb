@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import CommentBox from "./CommentBox";
 
 const CommentModal = ({ cModal, modalClose, comment_list }) => {
   const [searchbar, setSearchbar] = React.useState("");
@@ -7,34 +8,31 @@ const CommentModal = ({ cModal, modalClose, comment_list }) => {
   const handleform = (e) => {
     setSearchbar(e.target.value);
   };
-  // const filteredProducts = products.filter((product) => {
-
-  //   return product.includes(searchValue);
-
-  // })
-
+  //모달 상태관리값을 props로 받아옴
   return cModal ? (
     <>
       <Overlay cModal={cModal}>
         <Container onClick={modalClose}>
           <Contents onClick={(e) => e.stopPropagation()}>
-            {/* <Close onClick={closecomModal} >X</Close> */}
             <Search
               type="text"
               value={searchbar}
               onChange={handleform}
               placeholder="후기 검색"
             />
-
-            {/* {comment_list.filter((val)=>{
-              if(searchbar ==""){
-                return val
-              }
-             else if(val.contents.toLowerCase().includes(searchbar.toLowerCase()))
-             return  val
-            }).map((c, index) => {
-              return <CommentBox {...c} />;
-            })} */}
+            {/* 모달창에서 자체 검색기능 자세한 이해 필요 */}
+            {comment_list
+              .filter((list) => {
+                if (searchbar === "") {
+                  return list;
+                } else if (
+                  list.content.toLowerCase().includes(searchbar.toLowerCase())
+                )
+                  return list;
+              })
+              .map((data, index) => {
+                return <CommentBox data={data} cModal={cModal} />;
+              })}
           </Contents>
         </Container>
       </Overlay>

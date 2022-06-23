@@ -1,13 +1,19 @@
 import React from "react";
 import styled from "styled-components";
+import { useSelector } from "react-redux";
+// icons
 import { GoStar } from "react-icons/go";
 import { FiShare } from "react-icons/fi";
 import { BiHeart } from "react-icons/bi";
 import { BsTranslate } from "react-icons/bs";
 
-import { useSelector } from "react-redux";
-
 const Title = () => {
+  const title_list = useSelector((state) => state.comment.posts);
+  const comment_list = useSelector((state) => state.comment.comments);
+
+  //첫 렌더링때 할당된 값이 없을 때 읽지못하는 에러가 발생
+  // 해결하려면 로딩값을 따로주거나 !title_list 처럼 활용
+  if (!title_list) return;
   return (
     <>
       <Wrap>
@@ -15,9 +21,8 @@ const Title = () => {
           <span>
             <BsTranslate style={{ margin: "10px 15px 0px 0px" }} />
           </span>
-          특별한 프라이빗 아일랜드 리조트: 플로럴 아일랜드
+          {title_list.title}
         </PostTitle>
-
         <Btngroup>
           <CommentLocal>
             <span style={{ margin: "4px 4px 6px 0px" }}>
@@ -31,7 +36,10 @@ const Title = () => {
               style={{ margin: "0px 5px 3px 0px", textDecoration: "underline" }}
             >
               {" "}
-              후기 120개 ·
+              {comment_list?.length === 0
+                ? "New!"
+                : "후기" + comment_list?.length + "개"}{" "}
+              ·
             </p>
             <p
               style={{
@@ -40,10 +48,9 @@ const Title = () => {
                 textDecoration: "underline",
               }}
             >
-              El Nido, MIMAROPA, 필리핀
+              {title_list.address}
             </p>
           </CommentLocal>
-
           <Btn
             onClick={() => {
               window.alert("comming soon");
@@ -55,7 +62,6 @@ const Title = () => {
               </Icons>
               <div>공유하기</div>
             </ShareBtn>
-
             <ShareBtn>
               <Icons style={{ fontSize: "18px" }}>
                 <BiHeart />

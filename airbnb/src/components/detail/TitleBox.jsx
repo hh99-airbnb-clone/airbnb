@@ -4,14 +4,21 @@ import { useSelector } from "react-redux";
 import Profile from "../../images/prof.png";
 
 const TitleBox = () => {
+  const title_list = useSelector((state) => state.comment.posts);
+
+  if (!title_list) return;
   return (
     <>
       <HostWrap>
         <TextWrap>
-          <TextWho>XXXX님이 호스팅하는 공동 주택 전체</TextWho>
-          <TextInfo>최대 인원2명 · 침실 1개 · 침대1개 · 욕실 1개</TextInfo>
+          <TextWho>
+            {title_list.user_nickname}님이 호스팅하는 공동 주택 전체
+          </TextWho>
+          <TextInfo>
+            최대 인원{title_list.people}명 · 침실 {title_list.room}개 · 침대{" "}
+            {title_list.room}개 · 욕실 1개
+          </TextInfo>
         </TextWrap>
-
         <HostImage
           onClick={() => {
             window.scrollTo({ top: 9999, left: 0, behavior: "smooth" });

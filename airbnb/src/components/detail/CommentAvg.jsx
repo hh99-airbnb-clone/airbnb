@@ -1,16 +1,16 @@
 import { useRef } from "react";
 import React, { useState, useReducer } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { BsPencil } from "react-icons/bs";
 import { GoStar } from "react-icons/go";
 
 //모듈
-import { __addComment } from "../../redux/modules/Comment";
-import { useEffect } from "react";
+import { __addComment, __loadAvgs } from "../../redux/modules/Comment";
 
 //컴포넌트
 import AvgBars from "./AvgBars";
+import { useParams } from "react-router-dom";
 
 const initialState = {
   comment: "",
@@ -21,7 +21,7 @@ const initialState = {
   location: "1",
   satisfaction: "1",
 };
-
+//평점 남기기 리듀서
 function reducer(state, action) {
   switch (action.type) {
     case "COMMENT":
@@ -33,50 +33,38 @@ function reducer(state, action) {
       return state;
   }
 }
-
+// 후기 작성 밑 평점남기기 페이지
 const CommentAvg = () => {
   const dispatch = useDispatch();
-
+  const { id } = useParams();
   const [toggle, setToggle] = useState(false);
-
   const [review, setreview] = useReducer(reducer, initialState);
-
-  useEffect(() => {
-    console.log(review);
-  }, [review]);
+  const comment_list = useSelector((state) => state.comment.comments);
+  const avg_list = useSelector((state) => state.comment.commentAvgs);
 
   const pointList = ["1", "2", "3", "4", "5"];
 
   const addComment = () => {
-    console.log({
-      //id: prams 에서 id값 가져오기
-      comment: review.comment,
-      clean: review.clean,
-      checkin: review.checkin,
-      accuracy: review.accuracy,
-      communication: review.communication,
-      location: review.location,
-      satisfaction: review.satisfaction,
-    });
-    // dispatch(
-    //   __addComment({
-    //     //id: prams 에서 id값 가져오기
-    //     comment: comment.comment,
-    //     clean: comment.clean,
-    //     checkin: comment.checkin,
-    //     accuracy: comment.accuracy,
-    //     communication: comment.communication,
-    //     location: comment.location,
-    //     satisfaction: comment.satisfaction,
-    //   })
-    // );
+    dispatch(
+      __addComment({
+        id: id,
+        comment: review.comment,
+        clean: review.clean,
+        checkin: review.checkin,
+        accuracy: review.accuracy,
+        communication: review.communication,
+        location: review.location,
+        satisfaction: review.satisfaction,
+      })
+    );
     setreview({
       type: "RESET",
     });
-    window.alert("작성되었습니다!");
+
     setToggle(!toggle);
   };
 
+  //코드 간략화를 위해 name과 value값을 변수로 사용
   const onChange = (e) => {
     const { name, value } = e.target;
     setreview({
@@ -84,7 +72,6 @@ const CommentAvg = () => {
       name,
       value,
     });
-    console.log(name, value);
   };
 
   return (
@@ -100,7 +87,8 @@ const CommentAvg = () => {
             <span>
               <GoStar style={{ margin: "8px 5px 0px 0px" }} />
             </span>
-            4.76 · 후기 10개
+            {avg_list.totalStar === 0 ? "New" : avg_list.totalStar} · 후기{" "}
+            {comment_list.length}개
           </CommentCnt>
           {!toggle ? (
             <CommentBtn
@@ -290,7 +278,7 @@ const CommentBtn = styled.button`
 `;
 
 const WriteComment = styled.div`
-  margin: 50px 0px 30px 0px;
+  margin: 30px 110px 30px 0px;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -317,7 +305,13 @@ const AddCom = styled.button`
   border-bottom-right-radius: 12px;
   cursor: pointer;
   color: #ffffff;
-  background-color: #e51d52;
+  background: rgb(229, 29, 82);
+  background: linear-gradient(
+    90deg,
+    rgba(229, 29, 82, 1) 0%,
+    rgba(255, 0, 82, 1) 68%,
+    rgba(240, 29, 108, 1) 100%
+  );
   font-weight: 600;
 `;
 

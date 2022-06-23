@@ -1,21 +1,19 @@
 import axios from "axios";
 import { createAction, handleActions } from "redux-actions";
-// import axios from "axios";
 import { api } from "../../shared/api";
+import { getCookie } from "../../shared/cookie";
 
 //action
 const ADD = "comment/ADD";
 const LOAD = "comment/LOAD";
 const POSTLOAD = "post/LOAD";
 const AVGLOAD = "avg/LOAD";
-const IMGLOAD = "img/LOAD";
 
 //action creator
 const addComment = createAction(ADD, (comment) => ({ comment }));
 const loadComments = createAction(LOAD, (comment) => ({ comment }));
 const loadPosts = createAction(POSTLOAD, (post) => ({ post }));
-const loadAvgs = createAction(AVGLOAD, (avg) => ({ avg }));
-const loadImgs = createAction(IMGLOAD, (img) => ({ img }));
+const loadAvgs = createAction(AVGLOAD, (avgs) => ({ avgs }));
 
 //initialState
 const initialState = {
@@ -31,12 +29,12 @@ const initialState = {
       people: 4,
       wifi: false,
       parking: false,
-      images: [],
+      photoUrls: [],
       category: "주택",
       room: 2,
     },
   ],
-  imgs: [],
+
   commentAvgs: [
     {
       checkinAvg: 5, //체크인
@@ -64,55 +62,76 @@ const initialState = {
 };
 
 //Thunk function
+
+//후기 작성
 export const __addComment = (payload) => async (dispatch, getState) => {
+  const myToken = getCookie("Authorization");
   try {
-    const { data } = await api.post(
-      `/api/accommodation/${payload.id}/comments`,
-      payload
+    const response = await axios.post(
+      `http://3.34.4.93/api/accommodations/${payload.id}/comments`,
+      payload,
+      {
+        headers: {
+          Authorization: `Bearer ${myToken}`,
+        },
+      }
     );
-    dispatch(addComment(data));
-  } catch (e) {}
+    dispatch(__loadAvgs(payload.id));
+    dispatch(addComment(response.data));
+  } catch (e) {
+    console.log(e);
+  }
 };
-
+// 후기 받아오기
 export const __loadComments = (id) => async (dispatch, getState) => {
+  const myToken = getCookie("Authorization");
   try {
-    const { data } = await api.get(`/api/accommodation/${id}/comments`);
-    dispatch(loadComments(data));
-  } catch (e) {
-    // console.log(`코멘트 불러오기 실패! ${e}`);
-  }
-};
-
-export const __loadPosts = (id) => async (dispatch, getState) => {
-  try {
-    const { data } = await api.get(`/api/accommodation/${id}/`);
-    dispatch(loadPosts(data));
-  } catch (e) {
-    // console.log(`코멘트 불러오기 실패! ${e}`);
-  }
-};
-
-export const __loadAvgs = (id) => async (dispatch, getState) => {
-  try {
-    const { data } = await api.get(`/api/accommodation/${id}/avgs`);
-    dispatch(loadAvgs(data));
-  } catch (e) {
-    // console.log(`코멘트 불러오기 실패! ${e}`);
-  }
-};
-
-export const __loadImgs = (id) => async (dispatch, getState) => {
-  try {
-    const { data } = await axios.get(
-      `http://3.34.4.93/api/accommodations/1/imgs`
+    const response = await axios.get(
+      `http://3.34.4.93/api/accommodations/${id}/comments`,
+      {
+        headers: {
+          Authorization: `Bearer ${myToken}`,
+        },
+      }
     );
-    console.log(data);
-    // const response = JSON.parse(data);
 
-    // const { data } = await api.get(`/api/accommodation/${id}/avgs`);
-    dispatch(loadImgs(data));
+    dispatch(loadComments(response.data));
   } catch (e) {
-    // console.log(`코멘트 불러오기 실패! ${e}`);
+    console.log(e);
+  }
+};
+// 상세페이지 받아오기
+export const __loadPosts = (id) => async (dispatch, getState) => {
+  const myToken = getCookie("Authorization");
+  try {
+    const response = await axios.get(
+      `http://3.34.4.93/api/accommodations/${id}`,
+      {
+        headers: {
+          Authorization: `Bearer ${myToken}`,
+        },
+      }
+    );
+    dispatch(loadPosts(response.data));
+  } catch (e) {
+    console.log(e);
+  }
+};
+// 후기 평점 받아오기
+export const __loadAvgs = (id) => async (dispatch, getState) => {
+  const myToken = getCookie("Authorization");
+  try {
+    const response = await axios.get(
+      `http://3.34.4.93/api/accommodations/${id}/comments/avgs`,
+      {
+        headers: {
+          Authorization: `Bearer ${myToken}`,
+        },
+      }
+    );
+    dispatch(loadAvgs(response.data));
+  } catch (e) {
+    console.log(e);
   }
 };
 
@@ -121,34 +140,27 @@ export const __loadImgs = (id) => async (dispatch, getState) => {
 export default handleActions(
   {
     [ADD]: (state, action) => {
-      console.log(action);
       return {
         ...state,
-        comments: state.comments.concat(action.payload),
+        comments: state.comments.concat(action.payload.comment),
       };
     },
     [LOAD]: (state, action) => {
       return {
         ...state,
-        comments: action.payload,
+        comments: action.payload.comment,
       };
     },
     [POSTLOAD]: (state, action) => {
       return {
         ...state,
-        posts: action.payload,
+        posts: action.payload.post,
       };
     },
     [AVGLOAD]: (state, action) => {
       return {
         ...state,
-        commentAvgs: action.payload,
-      };
-    },
-    [IMGLOAD]: (state, action) => {
-      return {
-        ...state,
-        imgs: action.payload,
+        commentAvgs: action.payload.avgs,
       };
     },
   },
@@ -160,7 +172,6 @@ const commentActions = {
   __loadComments,
   __loadPosts,
   __loadAvgs,
-  __loadImgs,
 };
 
 export { commentActions };

@@ -4,6 +4,9 @@ import { GoStar } from "react-icons/go";
 import { BsFillFlagFill } from "react-icons/bs";
 import { useSelector } from "react-redux";
 const Follow = () => {
+  const comment_list = useSelector((state) => state.comment.comments);
+  const avg_list = useSelector((state) => state.comment.commentAvgs);
+  // sidebar 컴포넌트 추가기능 구현 시간부족
   return (
     <>
       <BarContainer>
@@ -22,7 +25,10 @@ const Follow = () => {
                   />
                 </span>
                 <p style={{ margin: "3px 5px 24px 0px", fontWeight: "500" }}>
-                  <span> 4.76 ·</span>
+                  <span>
+                    {" "}
+                    {avg_list.totalStar === 0 ? "New!" : avg_list.totalStar} ·
+                  </span>
                   <span
                     style={{
                       fontWeight: "500",
@@ -31,7 +37,7 @@ const Follow = () => {
                       fontSize: "14px",
                     }}
                   >
-                    후기 3개
+                    후기 {comment_list.length}개
                   </span>
                 </p>
               </Ctext>
@@ -85,7 +91,7 @@ const Ctext = styled.div`
 const BarContainer = styled.div`
   min-width: 500px;
   width: 100%;
-  height: 1800px;
+  height: 2300px;
   align-items: stretch;
 `;
 
@@ -180,8 +186,8 @@ const PinkButton = styled.button`
   background: linear-gradient(
     90deg,
     rgba(229, 29, 82, 1) 0%,
-    rgba(255, 0, 108, 1) 68%,
-    rgba(240, 88, 29, 1) 100%
+    rgba(255, 0, 82, 1) 68%,
+    rgba(240, 29, 108, 1) 100%
   );
   border: none;
   border-radius: 10px;
