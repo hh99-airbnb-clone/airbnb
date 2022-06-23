@@ -9,7 +9,9 @@ const { kakao } = window;
 
 const DetailMap = () => {
   const post_list = useSelector((state) => state.comment.posts);
+  const address_list = useSelector((state) => state.comment.posts.address);
   console.log(post_list);
+
   useEffect(() => {
     const container = document.getElementById("myMap");
     const options = {
@@ -42,7 +44,7 @@ const DetailMap = () => {
         customOverlay.setMap(map);
       }
     });
-  }, []);
+  }, [post_list]);
 
   return (
     <MapAll>

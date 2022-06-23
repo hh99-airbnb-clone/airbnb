@@ -21,7 +21,7 @@ const Header = () => {
   // const [image, setImage] = useState(false)
   //로그인하였을때 해더부분에서 인식하게해주는 토큰, 닉네임은 노출
 
-  const login = window.localStorage.getItem('accessToken');
+  const login = window.localStorage.getItem("accessToken");
 
   console.log(login);
 
@@ -172,7 +172,7 @@ const StBtn = styled.button`
   color: black;
   font-size: 16px;
   font-weight: bold;
-  margin: 0px 10px;
+  margin: 0px 0px;
 
   border: none;
   transition: transform 0.3s ease-in-out;
