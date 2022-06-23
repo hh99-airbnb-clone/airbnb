@@ -20,7 +20,9 @@ const Header = () => {
   const [signUp, setSignUp] = useState(false);
   // const [image, setImage] = useState(false)
   //로그인하였을때 해더부분에서 인식하게해주는 토큰, 닉네임은 노출
-  const login = window.localStorage.getItem("accessToken");
+
+  const login = window.localStorage.getItem('accessToken');
+
   console.log(login);
 
   const nickname = window.localStorage.getItem("nickname");
