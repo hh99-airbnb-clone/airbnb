@@ -8,14 +8,16 @@ import { useNavigate } from "react-router-dom";
 import { getCookie } from "../shared/cookie";
 import { __loadPosts } from "../redux/modules/post";
 
+
 //컴포넌트
 import Footer from "../components/Main/Footer";
 import SlickCategory from "../components/Main/SlickCategory";
-import Header from "../../src/components/Header";
+
 
 //css
 import "../css/Main.css";
 import { GoStar } from "react-icons/go";
+
 
 const Main = () => {
   const { posts } = useSelector((state) => state.postReducer);
@@ -23,14 +25,15 @@ const Main = () => {
   const dispatch = useDispatch();
   const token = getCookie("Authorization");
 
+
   useEffect(() => {
     dispatch(__loadPosts(token));
   }, [dispatch, token]);
 
+
   if (!posts) return;
   return (
     <>
-      <Header />
       <SlickCategory />
       <PostBox>
         {posts?.map((post) => {
@@ -50,8 +53,8 @@ const Main = () => {
               <NameBox>
                 <span>{post?.title}</span>
                 <span className="right">
-                  NEW
                   <GoStar style={{ width: "14px", marginRight: "2px" }} />
+                    NEW
                 </span>
               </NameBox>
               <span>₩{post?.fee}/박</span>
