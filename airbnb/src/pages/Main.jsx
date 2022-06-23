@@ -11,7 +11,6 @@ import { __loadPosts } from "../redux/modules/post";
 //컴포넌트
 import Footer from "../components/Main/Footer";
 import SlickCategory from "../components/Main/SlickCategory";
-import Header from "../../src/components/Header";
 
 //css
 import "../css/Main.css";

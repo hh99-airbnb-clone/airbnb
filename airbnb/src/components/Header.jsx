@@ -10,6 +10,7 @@ import { __login } from "../redux/modules/user";
 import Login from "../pages/Login";
 import { Outlet } from "react-router";
 import Signup from "../pages/Signup";
+import search from "../images/seach.png";
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -36,6 +37,7 @@ const Header = () => {
           <StLink to={"/"}>
             <StImg1 src={logo} />
           </StLink>
+          <StImg4 src={search} />
           <StLogInDiv>
             {login ? (
               <>
@@ -48,40 +50,36 @@ const Header = () => {
               </>
             ) : (
               <>
-                <div>
-                  <StImgWrap>
-                    <StImgBox>
-                      <StImg2 src={line3} />
-                      <StImg3 src={user} />
-                    </StImgBox>
-                  </StImgWrap>
+                <StBtn
+                  onClick={() => {
+                    setLogIn(true);
+                  }}
+                >
+                  로 그 인
+                </StBtn>
+                {logIn && <Login closeLogin={setLogIn} setSignUp={setSignUp} />}
 
-                  <StBtn
-                    onClick={() => {
-                      setLogIn(true);
-                    }}
-                  >
-                    로 그 인
-                  </StBtn>
-                  {logIn && (
-                    <Login closeLogin={setLogIn} setSignUp={setSignUp} />
-                  )}
-
-                  <StBtn
-                    onClick={() => {
-                      setSignUp(true);
-                    }}
-                  >
-                    회원가입
-                  </StBtn>
-                  {signUp && (
-                    <Signup closeSignup={setSignUp} setLogIn={setLogIn} />
-                  )}
-                </div>
+                <StBtn
+                  onClick={() => {
+                    setSignUp(true);
+                  }}
+                >
+                  회원가입
+                </StBtn>
+                {signUp && (
+                  <Signup closeSignup={setSignUp} setLogIn={setLogIn} />
+                )}
               </>
             )}
+            <StImgWrap>
+              <StImgButton>
+                <StImg2 src={line3} />
+                <StImg3 src={user} />
+              </StImgButton>
+            </StImgWrap>
           </StLogInDiv>
         </StHeader>
+
         <Outlet />
       </Wrap>
     </>
@@ -91,52 +89,65 @@ const Header = () => {
 export default Header;
 
 const Wrap = styled.div`
-  /* padding-top: 7%;
+  /* display: flex; */
   flex-direction: column;
-  justify-items: center;
+  justify-items: flex-start;
   align-items: center;
-  display: flex;
+
   position: absolute;
   top: 0;
   right: 0;
   bottom: 0;
   left: 0;
-  z-index: 99; */
+  z-index: 99;
+  justify-content: space-between;
 `;
 
 const StHeader = styled.div`
+  flex-direction: row;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
-  width: 100vw;
+  width: 100%;
   height: 15vh;
-  min-height: 150px;
-  margin: 30px 0px;
+  min-height: 100px;
+
   background-color: white;
 `;
 
 const StLink = styled(Link)`
   text-decoration: none;
-  padding: 0px 100px;
+  padding: 0px 80px 0px 0px;
 `;
 
 const StImg1 = styled.img`
-  width: 130px;
-  height: 58px;
+  height: 80px;
+  margin-top: 1%;
+  margin-left: 5vw;
+`;
+const StImg4 = styled.img`
+  flex-direction: row;
+  justify-content: flex-end;
+  height: 80px;
 `;
 
 const StImgWrap = styled.div`
   display: flex;
-  justify-content: end;
+
+  justify-content: flex-end;
 `;
-const StImgBox = styled.div`
+const StImgButton = styled.button`
+  margin-top: 5px;
   width: 90px;
   height: 40px;
   border: 1px solid gray;
   border-radius: 40px;
   display: flex;
+  position: relative;
+  z-index: 10;
   justify-content: center;
   align-items: center;
+  background-color: white;
 `;
 
 const StImg2 = styled.img`
@@ -176,9 +187,9 @@ const StBtn = styled.button`
 const StLogInDiv = styled.div`
   position: relative;
   display: flex;
-  justify-content: flex-end;
-  width: 70vw;
-  min-width: 500px;
+  justify-content: center;
+  width: 10vw;
+  min-width: 300px;
   height: 50px;
   margin-right: 7%;
   background: white;
