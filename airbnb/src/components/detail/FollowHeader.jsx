@@ -1,26 +1,32 @@
 import React from "react";
 import styled from "styled-components";
 import { GoStar } from "react-icons/go";
+import { useSelector } from "react-redux";
 
 const FollowHeader = () => {
   const [ScrollY, setScrollY] = React.useState(0); // window 의 pageYOffset값을 저장
   const [ScrollActive, setScrollActive] = React.useState(false);
   const [ScrollButton, setScrollButton] = React.useState(false);
+  const post_list = useSelector((state) => state.comment.posts);
+  const comment_list = useSelector((state) => state.comment.comments);
+  const avg_list = useSelector((state) => state.comment.commentAvgs);
 
   function handleScroll() {
-    if (ScrollY > 599) {
+    // 특정 좌표 지나면 헤더 생김
+    if (ScrollY > 650) {
       setScrollY(window.pageYOffset);
       setScrollActive(true);
     }
-    if (ScrollY <= 599) {
+    if (ScrollY <= 649) {
       setScrollY(window.pageYOffset);
       setScrollActive(false);
     }
-    if (ScrollY >= 2500) {
+    // 특정 좌표 지나면 버튼생김
+    if (ScrollY >= 2750) {
       setScrollY(window.pageYOffset);
       setScrollButton(true);
     }
-    if (ScrollY < 2500) {
+    if (ScrollY < 2750) {
       setScrollY(window.pageYOffset);
       setScrollButton(false);
     }
@@ -70,6 +76,7 @@ const FollowHeader = () => {
                 위치
               </NavMenu>
             </NavAll>
+            {/* 헤더 버튼 */}
             {ScrollButton ? (
               <NavBtn>
                 <NavBtnText>
@@ -82,7 +89,7 @@ const FollowHeader = () => {
                         color: "#000000",
                       }}
                     >
-                      ₩203,052
+                      ₩{post_list.fee}
                     </span>
                     <span
                       style={{
@@ -108,7 +115,13 @@ const FollowHeader = () => {
                     <p
                       style={{ margin: "3px 5px 24px 0px", fontWeight: "500" }}
                     >
-                      <span style={{ fontSize: "12px" }}> 4.76 ·</span>
+                      <span style={{ fontSize: "12px" }}>
+                        {" "}
+                        {avg_list.totalStar === 0
+                          ? "New!"
+                          : avg_list.totalStar}{" "}
+                        ·
+                      </span>
                       <span
                         style={{
                           fontWeight: "600",
@@ -118,7 +131,7 @@ const FollowHeader = () => {
                           color: "#6f6f6f",
                         }}
                       >
-                        후기 3개
+                        후기 {comment_list.length}개
                       </span>
                     </p>
                   </span>
@@ -207,8 +220,8 @@ const PinkButton = styled.button`
   background: linear-gradient(
     90deg,
     rgba(229, 29, 82, 1) 0%,
-    rgba(255, 0, 108, 1) 68%,
-    rgba(240, 88, 29, 1) 100%
+    rgba(255, 0, 82, 1) 68%,
+    rgba(240, 29, 108, 1) 100%
   );
   border: none;
   border-radius: 10px;

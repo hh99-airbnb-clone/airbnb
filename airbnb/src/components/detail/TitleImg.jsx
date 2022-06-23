@@ -1,26 +1,25 @@
-import React, { useEffect } from "react";
+import React from "react";
 import styled from "styled-components";
-import Mountain from "../../images/mountain.jpg";
 import { useSelector } from "react-redux";
 
 const TitleImg = () => {
-  const post_list = useSelector((state) => state.comment.imgs.img);
+  const img_list = useSelector((state) => state.comment.posts.photoUrls);
 
-  console.log(post_list);
+  if (!img_list) return;
   return (
     <>
       <ImgBox>
-        <BigImg src={Mountain}></BigImg>
+        <BigImg src={img_list[0]}></BigImg>
         <SmallBox>
-          <SmallImg src={Mountain} />
+          <SmallImg src={img_list[1]} />
           <SmallBoxBot>
-            <SmallImg src={Mountain} />
+            <SmallImg src={img_list[2]} />
           </SmallBoxBot>
         </SmallBox>
         <SmallBox>
-          <SmallImgR src={Mountain} />
+          <SmallImgR src={img_list[3]} />
           <SmallBoxBot>
-            <SmallImgRB src={Mountain} />
+            <SmallImgRB src={img_list[4]} />
           </SmallBoxBot>
         </SmallBox>
       </ImgBox>

@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import "../css/Main.css";
-// import {getCookie} from "../shared/Cookie"
+import { getCookie } from "../shared/cookie";
 import { __loadPosts, __loadImages } from "../redux/modules/post";
 import Footer from "../components/Main/Footer";
 import Category from "../components/Main/Category";
@@ -16,22 +16,15 @@ import Header from "../../src/components/Header";
 const Main = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  // const token = getCookie("Authorization")
-
-  // useEffect(() => {
-  //   // dispatch(__loadPosts(token))
-  //   dispatch(__loadPosts())
-  // }, []);
+  const token = getCookie("Authorization");
 
   useEffect(() => {
     // dispatch(__loadPosts(token))
-    dispatch(__loadImages());
-  }, []);
+    dispatch(__loadPosts(token));
+  }, [dispatch, token]);
 
   const { posts } = useSelector((state) => state.postReducer);
-
-  const { images } = useSelector((state) => state.postReducer.images);
-  console.log(images);
+  // console.log(posts);
 
   return (
     <>
@@ -48,7 +41,7 @@ const Main = () => {
               navigate(`/detail/${post.id}`);
             }}
           >
-            <img src={post.images[0]} width="300px" height="300px" />
+            <img src={post.photoUrls[0]} width="300px" height="300px" />
             <NameBox>
               <span>{post.title}</span>
               <span className="right">4.94 ⭐</span>

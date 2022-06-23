@@ -1,13 +1,13 @@
 import React from "react";
 import styled from "styled-components";
 import { ImHome } from "react-icons/im";
-
 import { Map, MapMarker, CustomOverlayMap } from "react-kakao-maps-sdk";
 import { useSelector } from "react-redux";
 
 const DetailMap = () => {
   const post_list = useSelector((state) => state.posts);
 
+  if (!post_list) return;
   return (
     <MapAll>
       <h2 style={{ margin: "45px 0px 25px 0px" }}>호스팅 지역</h2>

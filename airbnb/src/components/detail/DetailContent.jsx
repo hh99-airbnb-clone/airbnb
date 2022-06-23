@@ -10,12 +10,16 @@ import { IoIosSnow } from "react-icons/io";
 import { GiJumpingDog } from "react-icons/gi";
 import { TbToolsKitchen2 } from "react-icons/tb";
 import { FaRegKeyboard } from "react-icons/fa";
+import { FiChevronRight } from "react-icons/fi";
+//image
 import AirCover from "../../images/aircover.webp";
 //component
-import Follow from "./Follow";
 import Calender from "./Calender";
+import { useSelector } from "react-redux";
 
 const DetailContent = () => {
+  const post_list = useSelector((state) => state.comment.posts);
+
   return (
     <div>
       <>
@@ -33,7 +37,6 @@ const DetailContent = () => {
                 <IntroP>키패드를 이용해 체크인하세요.</IntroP>
               </Pgroup>
             </TextBox>
-
             <TextBox>
               <Pgroup>
                 <TitleP>
@@ -75,7 +78,7 @@ const DetailContent = () => {
             style={{
               fontSize: "14px",
               lineHeight: "20px",
-              color: "rgb(113, 113, 113)",
+              color: "rgb(73, 73, 73)",
             }}
           >
             모든 예약에는 호스트가 예약을 취소하거나 숙소 정보가 정확하지 않은
@@ -98,6 +101,16 @@ const DetailContent = () => {
         </Wrap>
         {/* 작성자 게시글 내용 */}
         <Wrap>
+          {" "}
+          <p
+            style={{
+              fontSize: "16px",
+              lineHeight: "20px",
+              color: "rgb(73, 73, 73)",
+            }}
+          >
+            {post_list.content}
+          </p>
           <TextWrap1>
             <span
               style={{
@@ -110,6 +123,15 @@ const DetailContent = () => {
               }}
             >
               더 보기
+              <span style={{ margin: "4px 4px 6px 0px" }}>
+                <FiChevronRight
+                  style={{
+                    fontSize: "14px",
+                    width: "14px",
+                    marginRight: "2px",
+                  }}
+                />
+              </span>
             </span>
           </TextWrap1>
         </Wrap>
@@ -129,10 +151,10 @@ const DetailContent = () => {
                   fontWeight: "800",
                 }}
               >
-                방 3개
+                방 {post_list.room}개
               </BadContent>
               <BadContent style={{ fontSize: "14px" }}>
-                퀸사이즈 침대 3개,
+                퀸사이즈 침대 {post_list.room}개,
                 <br />
                 소파 1개
               </BadContent>
@@ -142,15 +164,18 @@ const DetailContent = () => {
         {/* 숙소 편의 시설 */}
         <Wrap style={{ padding: "48px 0px" }}>
           <SleepP> 편의 시설 </SleepP>
-
-          <Facilities>
-            <AiOutlineWifi style={{ fontSize: "25px" }} />
-            ㅤ무선 인터넷
-          </Facilities>
-          <Facilities>
-            <AiOutlineCar style={{ fontSize: "25px" }} />
-            ㅤ건물 진입로 무료주차-1대 주차 가능
-          </Facilities>
+          {post_list.wifi === "와이파이 있음" ? (
+            <Facilities>
+              <AiOutlineWifi style={{ fontSize: "25px" }} />
+              ㅤ무선 인터넷
+            </Facilities>
+          ) : null}
+          {post_list.parking === "주차공간 있음" ? (
+            <Facilities>
+              <AiOutlineCar style={{ fontSize: "25px" }} />
+              ㅤ건물 진입로 무료주차-1대 주차 가능
+            </Facilities>
+          ) : null}
           <Facilities>
             <IoIosSnow style={{ fontSize: "25px" }} />
             ㅤ에어컨
@@ -169,7 +194,7 @@ const DetailContent = () => {
             </p>
           </OverComment>
         </Wrap>
-        {/* 달력 들어가야 되는데 이미지로 할지 고민중  */}
+        {/* 달력 */}
         <Wrap1>
           <div>
             <SleepP style={{ padding: "0px 0px 0px 0px", lineHeight: "25px" }}>
@@ -177,7 +202,7 @@ const DetailContent = () => {
             </SleepP>
             <IntroP>여행 날짜를 입력하여 정확한 요금을 확인하세요.</IntroP>
           </div>
-
+          <Calender />
           <Cfooter>
             <div style={{ marginLeft: "24px", width: "16px" }}>
               <FaRegKeyboard style={{ fontSize: "25px" }} />
@@ -225,7 +250,6 @@ const TextBox1 = styled.div`
 
 const Pgroup = styled.div`
   display: block;
-  margin-left: 16px;
 `;
 
 const TitleP = styled.p`
@@ -278,18 +302,6 @@ const Facilities = styled.div`
   margin: 20px 0;
 `;
 
-const HalfFac = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 300px;
-`;
-
-const ImotiText = styled.div`
-  display: flex;
-
-  flex-direction: row;
-`;
-
 const Cfooter = styled.div`
   justify-content: space-between;
   display: flex;
@@ -298,7 +310,6 @@ const Cfooter = styled.div`
 
 const Del = styled.div`
   margin-top: 5px;
-  margin-right: 50px;
   font-size: 14px;
   text-decoration: underline;
   font-weight: 600;
